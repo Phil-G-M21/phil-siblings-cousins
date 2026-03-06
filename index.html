@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🚀 Study Squad — Grades 6–9</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#04060f;--s1:#090d1e;--s2:#0e1428;--s3:#131c36;
+  --g6:#4ade80;--g7:#60a5fa;--g8:#c084fc;--g9:#fb923c;
+  --math:#fcd34d;--sci:#2dd4bf;--eng:#f472b6;--groq:#a78bfa;
+  --red:#f87171;--text:#eef2ff;--muted:#4b5e8a;--rad:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.bg-stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite alternate;}
+@keyframes twinkle{from{opacity:.1;}to{opacity:.8;}}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 15% 40%,rgba(96,165,250,.05) 0%,transparent 55%),
+             radial-gradient(ellipse at 85% 20%,rgba(192,132,252,.04) 0%,transparent 55%),
+             radial-gradient(ellipse at 50% 80%,rgba(74,222,128,.03) 0%,transparent 50%);}
+
+/* NAV + HAMBURGER */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;background:rgba(4,6,15,.95);backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-logo{font-family:'Fredoka One',cursive;font-size:1.15rem;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;gap:7px;text-decoration:none;white-space:nowrap;z-index:210;}
+.nav-logo .rocket{display:inline-block;animation:rocketBob 2.5s ease-in-out infinite;}
+@keyframes rocketBob{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-5px) rotate(-5deg);}}
+.ham{display:none;flex-direction:column;justify-content:center;align-items:center;
+  width:38px;height:38px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:10px;cursor:pointer;gap:5px;z-index:210;flex-shrink:0;}
+.ham span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s ease;}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-links{display:flex;align-items:center;gap:3px;}
+.nbtn{font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;padding:6px 13px;
+  border-radius:50px;border:1.5px solid transparent;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.nbtn:hover,.nbtn.on{color:var(--text);border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.06);}
+.nbtn.groq-btn{border-color:rgba(167,139,250,.3);color:var(--groq);}
+.nbtn.groq-btn.on,.nbtn.groq-btn:hover{background:rgba(167,139,250,.1);border-color:var(--groq);color:var(--groq);}
+@media(max-width:640px){
+  .ham{display:flex;}
+  .nav-links{
+    position:fixed;top:0;left:0;right:0;bottom:0;z-index:205;
+    flex-direction:column;align-items:stretch;justify-content:center;gap:8px;
+    background:rgba(4,6,15,.98);backdrop-filter:blur(28px);
+    padding:80px 24px 40px;
+    transform:translateX(105%);transition:transform .32s cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+  }
+  .nav-links.open{transform:translateX(0);pointer-events:all;}
+  .nbtn{
+    font-size:1.05rem;padding:13px 18px;border-radius:14px;
+    border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
+    display:flex;align-items:center;gap:10px;text-align:left;color:var(--text);
+  }
+  .nbtn.on{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);}
+  .nbtn.groq-btn{border-color:rgba(167,139,250,.3);color:var(--groq);background:rgba(167,139,250,.06);}
+  .nbtn.groq-btn.on{background:rgba(167,139,250,.14);}
+}
+
+/* PAGES */
+.page{min-height:100vh;position:relative;z-index:1;padding:82px 20px 56px;}
+.inner{max-width:900px;margin:0 auto;}
+
+/* HOME */
+#pg-home{display:flex;align-items:center;justify-content:center;}
+.hero{text-align:center;max-width:740px;margin:0 auto;}
+.hero-rocket{font-size:5rem;display:inline-block;margin-bottom:12px;}
+.hero h1{font-family:'Fredoka One',cursive;font-size:clamp(1.9rem,6.5vw,3.3rem);line-height:1.1;margin-bottom:8px;}
+.hero p{color:var(--muted);font-size:.97rem;line-height:1.7;margin-bottom:28px;}
+.grade-btns-home{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:26px;}
+.gbh{font-family:'Fredoka One',cursive;font-size:1.4rem;padding:14px 18px;border-radius:14px;
+  border:2.5px solid;cursor:pointer;transition:all .25s;background:transparent;min-width:82px;}
+.gbh:hover{transform:translateY(-3px) scale(1.04);}
+.gbh .gnum{display:block;line-height:1;}
+.gbh .gname{display:block;font-size:.58rem;font-family:'Nunito',sans-serif;font-weight:800;opacity:.7;margin-top:2px;letter-spacing:.3px;}
+.gbh[data-g='6']{border-color:rgba(74,222,128,.5);color:var(--g6);}
+.gbh[data-g='7']{border-color:rgba(96,165,250,.5);color:var(--g7);}
+.gbh[data-g='8']{border-color:rgba(192,132,252,.5);color:var(--g8);}
+.gbh[data-g='9']{border-color:rgba(251,146,60,.5);color:var(--g9);}
+.gbh.sel[data-g='6']{background:rgba(74,222,128,.12);box-shadow:0 0 22px rgba(74,222,128,.18);}
+.gbh.sel[data-g='7']{background:rgba(96,165,250,.12);box-shadow:0 0 22px rgba(96,165,250,.18);}
+.gbh.sel[data-g='8']{background:rgba(192,132,252,.12);box-shadow:0 0 22px rgba(192,132,252,.18);}
+.gbh.sel[data-g='9']{background:rgba(251,146,60,.12);box-shadow:0 0 22px rgba(251,146,60,.18);}
+.hero-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.btn-p{font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;padding:11px 22px;
+  border:none;border-radius:50px;cursor:pointer;transition:all .22s;}
+.btn-p:hover{transform:translateY(-2px);}
+.btn-s{font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;padding:10px 20px;
+  border:2px solid rgba(255,255,255,.12);border-radius:50px;cursor:pointer;
+  background:rgba(255,255,255,.05);color:var(--text);transition:all .2s;}
+.btn-s:hover{background:rgba(255,255,255,.09);transform:translateY(-2px);}
+
+/* SECTION */
+.sec-head{margin-bottom:18px;}
+.sec-title{font-family:'Fredoka One',cursive;font-size:1.85rem;margin-bottom:3px;}
+.sec-sub{color:var(--muted);font-size:.84rem;line-height:1.6;}
+
+/* SELECTOR BAR */
+.selector-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  background:var(--s1);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 13px;margin-bottom:14px;}
+.sel-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);white-space:nowrap;}
+.sel-divider{width:1px;height:18px;background:rgba(255,255,255,.07);}
+.gsel-btn{font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;padding:4px 11px;
+  border-radius:50px;border:1.5px solid;cursor:pointer;transition:all .16s;background:transparent;}
+.gsel-btn[data-g='6']{border-color:rgba(74,222,128,.3);color:rgba(74,222,128,.7);}
+.gsel-btn[data-g='7']{border-color:rgba(96,165,250,.3);color:rgba(96,165,250,.7);}
+.gsel-btn[data-g='8']{border-color:rgba(192,132,252,.3);color:rgba(192,132,252,.7);}
+.gsel-btn[data-g='9']{border-color:rgba(251,146,60,.3);color:rgba(251,146,60,.7);}
+.gsel-btn.on[data-g='6']{background:rgba(74,222,128,.14);color:var(--g6);border-color:var(--g6);}
+.gsel-btn.on[data-g='7']{background:rgba(96,165,250,.14);color:var(--g7);border-color:var(--g7);}
+.gsel-btn.on[data-g='8']{background:rgba(192,132,252,.14);color:var(--g8);border-color:var(--g8);}
+.gsel-btn.on[data-g='9']{background:rgba(251,146,60,.14);color:var(--g9);border-color:var(--g9);}
+.ssel-btn{font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;padding:4px 11px;
+  border-radius:50px;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;transition:all .16s;background:transparent;color:var(--muted);}
+.ssel-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+.ssel-btn.on.math{border-color:rgba(252,211,77,.5);color:var(--math);background:rgba(252,211,77,.08);}
+.ssel-btn.on.sci{border-color:rgba(45,212,191,.5);color:var(--sci);background:rgba(45,212,191,.08);}
+.ssel-btn.on.eng{border-color:rgba(244,114,182,.5);color:var(--eng);background:rgba(244,114,182,.08);}
+.ssel-btn.on.mix{border-color:rgba(255,255,255,.2);color:var(--text);background:rgba(255,255,255,.07);}
+
+/* QUIZ OPTIONS */
+.opts-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
+.opt-g label{display:block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px;}
+.opt-g select{width:100%;background:var(--s1);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.84rem;padding:8px 10px;cursor:pointer;}
+.opt-g select:focus{outline:none;border-color:rgba(255,255,255,.22);}
+.gen-btn{width:100%;font-family:'Nunito',sans-serif;font-weight:800;font-size:.94rem;
+  padding:12px;border:none;border-radius:12px;cursor:pointer;transition:all .2s;}
+.gen-btn:disabled{opacity:.36;cursor:not-allowed;}
+.gen-btn:hover:not(:disabled){transform:translateY(-1px);}
+
+/* QUIZ */
+.quiz-area{display:none;}
+.quiz-area.on{display:block;}
+.quiz-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:7px;flex-wrap:wrap;}
+.q-counter{font-family:'Space Mono',monospace;font-size:.76rem;color:var(--muted);}
+.q-score-badge{font-family:'Space Mono',monospace;font-size:.76rem;background:var(--s1);border-radius:50px;padding:4px 11px;border:1px solid rgba(255,255,255,.07);}
+.q-type-badge{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 8px;border-radius:50px;}
+.type-mc{background:rgba(96,165,250,.12);color:var(--g7);}
+.type-tf{background:rgba(192,132,252,.12);color:var(--g8);}
+.type-fb{background:rgba(252,211,77,.1);color:var(--math);}
+.type-eng{background:rgba(244,114,182,.12);color:var(--eng);}
+.q-card{background:var(--s1);border:1px solid rgba(255,255,255,.05);border-radius:var(--rad);
+  padding:18px 20px;margin-bottom:8px;animation:cardIn .2s ease;}
+@keyframes cardIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.q-num-label{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
+.q-text{font-size:.95rem;font-weight:700;line-height:1.55;margin-bottom:13px;word-break:break-word;}
+.q-opts{display:flex;flex-direction:column;gap:5px;}
+.q-opt{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);
+  border-radius:9px;color:var(--text);font-family:'Nunito',sans-serif;
+  font-weight:600;font-size:.84rem;padding:9px 12px;cursor:pointer;text-align:left;transition:all .13s;
+  display:flex;align-items:center;gap:7px;}
+.q-opt:hover:not(:disabled){background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);}
+.q-opt.correct{background:rgba(74,222,128,.13)!important;border-color:var(--g6)!important;color:var(--g6);}
+.q-opt.wrong{background:rgba(248,113,113,.13)!important;border-color:var(--red)!important;color:var(--red);}
+.opt-lbl{background:rgba(255,255,255,.07);border-radius:5px;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.6rem;flex-shrink:0;}
+.q-explain{margin-top:8px;padding:8px 11px;font-size:.76rem;color:var(--muted);
+  background:rgba(96,165,250,.05);border-left:3px solid var(--g7);border-radius:5px;display:none;line-height:1.55;}
+.q-explain.on{display:block;}
+/* FB */
+.fb-input-wrap{display:flex;gap:6px;align-items:stretch;}
+.fb-inp{flex:1;background:var(--bg);border:2px solid rgba(252,211,77,.3);border-radius:9px;
+  color:var(--text);font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:600;padding:9px 11px;transition:border-color .2s;}
+.fb-inp:focus{outline:none;border-color:var(--math);}
+.fb-inp.correct{border-color:var(--g6)!important;background:rgba(74,222,128,.06);}
+.fb-inp.wrong{border-color:var(--red)!important;background:rgba(248,113,113,.06);}
+.fb-inp:disabled{opacity:.75;cursor:not-allowed;}
+.fb-submit{font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;padding:9px 15px;
+  border:none;border-radius:9px;cursor:pointer;background:linear-gradient(135deg,var(--math),#f59e0b);
+  color:#04060f;transition:all .16s;white-space:nowrap;}
+.fb-submit:hover:not(:disabled){transform:translateY(-1px);}
+.fb-submit:disabled{opacity:.36;cursor:not-allowed;}
+.fb-hint{font-size:.68rem;color:var(--muted);margin-top:3px;font-style:italic;}
+
+/* RESULTS */
+.results-wrap{background:var(--s1);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--rad);padding:28px;text-align:center;animation:cardIn .3s ease;margin-top:10px;}
+.res-emoji{font-size:3rem;margin-bottom:7px;}
+.res-score{font-family:'Fredoka One',cursive;font-size:2.6rem;}
+.res-pct{font-size:.86rem;font-weight:700;margin:3px 0 6px;color:var(--muted);}
+.res-msg{color:var(--muted);margin-bottom:20px;font-size:.87rem;line-height:1.6;}
+.res-btns{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
+/* REVIEW */
+.review-wrap{margin-top:18px;}
+.review-title{font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.review-item{background:var(--s1);border-radius:11px;padding:12px 14px;margin-bottom:7px;
+  border-left:4px solid rgba(255,255,255,.07);}
+.review-item.r-correct{border-left-color:var(--g6);}
+.review-item.r-wrong{border-left-color:var(--red);}
+.ri-top{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
+.ri-qnum{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--muted);}
+.ri-badge{font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:50px;}
+.ri-badge.r-correct{background:rgba(74,222,128,.13);color:var(--g6);}
+.ri-badge.r-wrong{background:rgba(248,113,113,.13);color:var(--red);}
+.ri-q{font-weight:700;font-size:.82rem;line-height:1.5;margin-bottom:5px;word-break:break-word;}
+.ri-answers{display:flex;flex-direction:column;gap:2px;font-size:.76rem;}
+.ri-your{color:var(--muted);}
+.ri-your span{color:var(--text);font-weight:700;}
+.ri-your span.was-wrong{color:var(--red);}
+.ri-correct-ans{color:var(--g6);font-weight:700;}
+.ri-explain{font-size:.72rem;color:var(--muted);margin-top:4px;border-top:1px solid rgba(255,255,255,.05);padding-top:4px;line-height:1.5;}
+
+/* GAMES */
+.games-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:560px){.games-grid{grid-template-columns:1fr;}}
+.g-card{background:var(--s1);border:1px solid rgba(255,255,255,.06);border-radius:var(--rad);padding:18px;transition:border-color .2s,transform .2s;}
+.g-card:hover{border-color:rgba(255,255,255,.11);}
+.g-icon{font-size:1.9rem;margin-bottom:6px;}
+.g-card h3{font-family:'Fredoka One',cursive;font-size:1.1rem;margin-bottom:3px;}
+.g-card>p{color:var(--muted);font-size:.78rem;margin-bottom:11px;line-height:1.5;}
+.btn-game{width:100%;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;
+  padding:9px;border:none;border-radius:9px;cursor:pointer;transition:all .16s;}
+.btn-game:hover:not(:disabled){transform:translateY(-1px);}
+
+/* SPEED MATH */
+.sm-question{font-family:'Fredoka One',cursive;font-size:1.8rem;text-align:center;padding:14px;
+  background:var(--bg);border-radius:11px;margin-bottom:8px;color:var(--math);}
+.sm-inp{width:100%;background:var(--bg);border:2.5px solid rgba(252,211,77,.3);border-radius:9px;
+  color:var(--text);font-family:'Space Mono',monospace;font-size:1.3rem;padding:9px;text-align:center;margin-bottom:7px;}
+.sm-inp:focus{outline:none;border-color:var(--math);}
+.sm-stats{display:flex;gap:5px;margin-bottom:5px;}
+.sm-pill{background:var(--bg);border-radius:50px;padding:3px 10px;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted);flex:1;text-align:center;}
+.tbar{height:4px;background:rgba(255,255,255,.05);border-radius:3px;margin-bottom:8px;}
+.tbar-fill{height:100%;border-radius:3px;transition:width .08s linear,background .2s;}
+
+/* STREAK */
+.streak-q{font-size:.9rem;font-weight:700;margin-bottom:10px;line-height:1.5;}
+.streak-opts{display:flex;flex-direction:column;gap:5px;}
+.str-opt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;
+  color:var(--text);font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;
+  padding:7px 11px;cursor:pointer;text-align:left;transition:all .12s;}
+.str-opt:hover:not(:disabled){background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);}
+.str-opt.correct{background:rgba(74,222,128,.13)!important;border-color:var(--g6)!important;color:var(--g6);}
+.str-opt.wrong{background:rgba(248,113,113,.13)!important;border-color:var(--red)!important;color:var(--red);}
+.streak-fact{margin-top:7px;font-size:.74rem;color:var(--muted);background:rgba(255,255,255,.03);
+  border-left:2px solid var(--g7);padding:6px 9px;border-radius:4px;display:none;line-height:1.5;}
+.streak-fact.on{display:block;}
+
+/* MATCH */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px;}
+.match-card{background:var(--bg);border:2px solid rgba(255,255,255,.1);border-radius:9px;
+  padding:8px 10px;cursor:pointer;transition:all .18s;font-size:.76rem;font-weight:700;text-align:center;min-height:44px;
+  display:flex;align-items:center;justify-content:center;}
+.match-card:hover{border-color:rgba(255,255,255,.2);}
+.match-card.selected{border-color:var(--g7);background:rgba(96,165,250,.1);color:var(--g7);}
+.match-card.matched{border-color:var(--g6);background:rgba(74,222,128,.08);color:var(--g6);cursor:default;}
+.match-card.wrong-flash{border-color:var(--red);background:rgba(248,113,113,.1);animation:wrongShake .3s ease;}
+@keyframes wrongShake{0%,100%{transform:translateX(0);}33%{transform:translateX(-4px);}66%{transform:translateX(4px);}}
+
+/* NOTES */
+.notes-nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.ntab{font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;padding:6px 14px;
+  border-radius:50px;border:1.5px solid rgba(255,255,255,.1);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .16s;}
+.ntab:hover,.ntab.on{color:var(--text);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);}
+.note-panel{display:none;}
+.note-panel.on{display:block;}
+.note-section-title{font-family:'Fredoka One',cursive;font-size:1.1rem;margin:16px 0 9px;display:flex;align-items:center;gap:6px;}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;}
+.f-card{background:var(--s1);border-radius:11px;padding:12px 14px;border:1px solid rgba(255,255,255,.06);}
+.f-card h4{font-family:'Fredoka One',cursive;font-size:.95rem;margin-bottom:7px;}
+.f-card.math h4{color:var(--math);}
+.f-card.sci h4{color:var(--sci);}
+.f-card.eng h4{color:var(--eng);}
+.formula{font-family:'Space Mono',monospace;font-size:.78rem;background:var(--bg);
+  border-radius:7px;padding:6px 10px;margin-bottom:4px;color:var(--text);word-break:break-all;}
+.f-desc{font-size:.72rem;color:var(--muted);line-height:1.5;margin-top:2px;}
+.f-example{font-size:.72rem;color:rgba(74,222,128,.8);margin-top:4px;font-style:italic;}
+
+/* GROQ AI PAGE */
+.groq-hero{text-align:center;padding:10px 0 24px;}
+.groq-hero h2{font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:6px;}
+.groq-hero p{color:var(--muted);font-size:.9rem;line-height:1.65;}
+.groq-key-card{background:var(--s1);border:1.5px solid rgba(167,139,250,.25);border-radius:14px;padding:20px;margin-bottom:16px;}
+.groq-key-card h3{font-family:'Fredoka One',cursive;font-size:1.1rem;margin-bottom:10px;color:var(--groq);}
+.key-inp{width:100%;background:var(--bg);border:1.5px solid rgba(167,139,250,.3);border-radius:10px;
+  color:var(--text);font-family:'Space Mono',monospace;font-size:.82rem;padding:10px 13px;margin-bottom:10px;}
+.key-inp:focus{outline:none;border-color:var(--groq);}
+.key-btns{display:flex;gap:8px;}
+.btn-groq{font-family:'Nunito',sans-serif;font-weight:800;font-size:.86rem;padding:9px 20px;
+  border:none;border-radius:50px;cursor:pointer;background:linear-gradient(135deg,var(--groq),#7c3aed);color:#fff;transition:all .2s;}
+.btn-groq:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,139,250,.3);}
+.btn-groq:disabled{opacity:.4;cursor:not-allowed;}
+.key-status{font-size:.78rem;display:flex;align-items:center;gap:6px;margin-top:6px;}
+.ks-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);}
+.ks-dot.on{background:#4ade80;}
+.groq-chat-card{background:var(--s1);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px;margin-bottom:14px;}
+.groq-chat-card h3{font-family:'Fredoka One',cursive;font-size:1.05rem;margin-bottom:12px;color:var(--text);}
+.chat-box{min-height:220px;max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:4px;}
+.chat-box::-webkit-scrollbar{width:4px;}
+.chat-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px;}
+.msg{max-width:88%;padding:9px 13px;border-radius:12px;font-size:.84rem;line-height:1.55;word-break:break-word;}
+.msg.user{background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.2);color:var(--text);align-self:flex-end;border-radius:12px 12px 3px 12px;}
+.msg.ai{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.18);color:var(--text);align-self:flex-start;border-radius:12px 12px 12px 3px;}
+.msg.ai.loading{opacity:.6;}
+.chat-input-row{display:flex;gap:7px;}
+.chat-inp{flex:1;background:var(--bg);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;
+  color:var(--text);font-family:'Nunito',sans-serif;font-size:.86rem;padding:9px 12px;}
+.chat-inp:focus{outline:none;border-color:var(--groq);}
+.chat-send{font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;padding:9px 18px;
+  border:none;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,var(--groq),#7c3aed);color:#fff;
+  transition:all .16s;white-space:nowrap;}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;}
+.groq-topics{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.topic-chip{font-family:'Nunito',sans-serif;font-weight:700;font-size:.74rem;padding:4px 11px;
+  border-radius:50px;border:1px solid rgba(167,139,250,.3);background:rgba(167,139,250,.07);
+  color:var(--groq);cursor:pointer;transition:all .14s;}
+.topic-chip:hover{background:rgba(167,139,250,.15);border-color:var(--groq);}
+.groq-steps{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.15);border-radius:10px;
+  padding:12px 15px;margin-bottom:14px;font-size:.8rem;color:var(--muted);line-height:1.8;}
+.groq-steps strong{color:var(--text);}
+.groq-steps a{color:var(--groq);}
+
+/* TOAST */
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--s2);
+  border:1px solid rgba(255,255,255,.14);border-radius:50px;padding:9px 18px;font-weight:800;font-size:.78rem;
+  z-index:999;white-space:nowrap;animation:toastIn .25s ease;pointer-events:none;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+footer{position:relative;z-index:1;text-align:center;padding:16px;
+  border-top:1px solid rgba(255,255,255,.04);color:var(--muted);font-size:.74rem;line-height:1.7;}
+footer .dev{color:var(--groq);font-weight:800;}
+
+@media(max-width:640px){
+  nav{padding:9px 14px;}
+  .page{padding:70px 14px 48px;}
+  .opts-row{grid-template-columns:1fr;}
+  .games-grid{grid-template-columns:1fr;}
+  .selector-bar{gap:5px;padding:9px 11px;}
+  .hero p{font-size:.88rem;}
+  .grade-btns-home{gap:7px;}
+  .gbh{min-width:70px;padding:12px 14px;}
+  .hero-actions{gap:7px;}
+  .btn-p,.btn-s{font-size:.82rem;padding:10px 16px;}
+  .formula-grid{grid-template-columns:1fr;}
+  .match-grid{grid-template-columns:1fr 1fr;}
+  .groq-key-card,.groq-chat-card{padding:14px;}
+  .chat-box{min-height:180px;max-height:280px;}
+  .results-wrap{padding:20px 16px;}
+  .res-score{font-size:2.2rem;}
+}
+</style>
+</head>
+<body>
+<div class="bg-stars" id="starsEl"></div>
+<div class="bg-glow"></div>
+
+<nav>
+  <a class="nav-logo" onclick="showPage('home')"><span class="rocket">🚀</span> Study Squad</a>
+  <button class="ham" id="hamBtn" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <button class="nbtn on" id="nb-home" onclick="navGo('home')">🏠 Home</button>
+    <button class="nbtn" id="nb-quiz" onclick="navGo('quiz')">📚 Quiz</button>
+    <button class="nbtn" id="nb-games" onclick="navGo('games')">🎮 Games</button>
+    <button class="nbtn" id="nb-notes" onclick="navGo('notes')">📋 Notes</button>
+    <button class="nbtn groq-btn" id="nb-groq" onclick="navGo('groq')">🤖 Ask Groq</button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page" id="pg-home">
+<div class="inner hero">
+  <div class="hero-rocket">🚀</div>
+  <h1>Welcome to<br/><span style="background:linear-gradient(135deg,var(--g7),var(--g8));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Study Squad!</span></h1>
+  <p>Your all-in-one study app — Maths, Science &amp; English for Grades 6–9.<br/>Quizzes · Games · Notes · AI Tutor · All free, all in your browser 💥</p>
+  <div style="margin-bottom:8px;font-size:.85rem;color:var(--muted)">👇 Pick your grade</div>
+  <div class="grade-btns-home">
+    <button class="gbh" data-g="6" onclick="selectGrade(6,this)"><span class="gnum">6</span><span class="gname">Grade 6</span></button>
+    <button class="gbh" data-g="7" onclick="selectGrade(7,this)"><span class="gnum">7</span><span class="gname">Grade 7</span></button>
+    <button class="gbh" data-g="8" onclick="selectGrade(8,this)"><span class="gnum">8</span><span class="gname">Grade 8</span></button>
+    <button class="gbh" data-g="9" onclick="selectGrade(9,this)"><span class="gnum">9</span><span class="gname">Grade 9</span></button>
+  </div>
+  <div class="hero-actions">
+    <button class="btn-p" style="background:linear-gradient(135deg,var(--math),#f59e0b);color:#04060f;" onclick="showPage('quiz');qPickSubj('math')">📐 Maths</button>
+    <button class="btn-p" style="background:linear-gradient(135deg,var(--sci),#0d9488);color:#04060f;" onclick="showPage('quiz');qPickSubj('sci')">🔬 Science</button>
+    <button class="btn-p" style="background:linear-gradient(135deg,var(--eng),#be185d);color:#fff;" onclick="showPage('quiz');qPickSubj('eng')">📖 English</button>
+    <button class="btn-s" onclick="showPage('games')">🎮 Games</button>
+    <button class="btn-p" style="background:linear-gradient(135deg,var(--groq),#7c3aed);color:#fff;" onclick="showPage('groq')">🤖 Ask Groq AI</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div class="page" id="pg-quiz" style="display:none">
+<div class="inner">
+  <div class="sec-head">
+    <div class="sec-title">📚 <span style="color:var(--g7)">Quiz</span> Me</div>
+    <p class="sec-sub">300+ questions across Maths, Science &amp; English for all 4 grades.</p>
+  </div>
+  <div class="selector-bar">
+    <span class="sel-label">Grade</span>
+    <button class="gsel-btn" data-g="6" onclick="qPickGrade(6,this)">Gr 6</button>
+    <button class="gsel-btn" data-g="7" onclick="qPickGrade(7,this)">Gr 7</button>
+    <button class="gsel-btn" data-g="8" onclick="qPickGrade(8,this)">Gr 8</button>
+    <button class="gsel-btn" data-g="9" onclick="qPickGrade(9,this)">Gr 9</button>
+    <div class="sel-divider"></div>
+    <span class="sel-label">Subject</span>
+    <button class="ssel-btn math" id="sb-math" onclick="qPickSubj('math')">📐 Maths</button>
+    <button class="ssel-btn sci" id="sb-sci" onclick="qPickSubj('sci')">🔬 Science</button>
+    <button class="ssel-btn eng" id="sb-eng" onclick="qPickSubj('eng')">📖 English</button>
+    <button class="ssel-btn mix" id="sb-mix" onclick="qPickSubj('mix')">✨ Mixed</button>
+  </div>
+  <div class="opts-row">
+    <div class="opt-g"><label>Questions</label>
+      <select id="numQ"><option value="10" selected>10</option><option value="20">20</option><option value="30">30</option><option value="50">50</option></select>
+    </div>
+    <div class="opt-g"><label>Difficulty</label>
+      <select id="diff"><option value="easy">Easy 😊</option><option value="medium" selected>Medium 🤔</option><option value="hard">Hard 🔥</option></select>
+    </div>
+  </div>
+  <button class="gen-btn" id="genBtn" onclick="startQuiz()" style="background:linear-gradient(135deg,var(--g7),#2563eb);color:#fff;">🚀 Start Quiz</button>
+  <div style="height:10px"></div>
+  <div class="quiz-area" id="quizArea"></div>
+</div>
+</div>
+
+<!-- ══════════ GAMES ══════════ -->
+<div class="page" id="pg-games" style="display:none">
+<div class="inner">
+  <div class="sec-head">
+    <div class="sec-title">🎮 <span style="color:var(--g9)">Games</span></div>
+    <p class="sec-sub">Four challenges to sharpen your skills 🔥</p>
+  </div>
+  <div class="selector-bar" style="margin-bottom:16px">
+    <span class="sel-label">Grade</span>
+    <button class="gsel-btn" data-g="6" onclick="gPickGrade(6,this)">Gr 6</button>
+    <button class="gsel-btn" data-g="7" onclick="gPickGrade(7,this)">Gr 7</button>
+    <button class="gsel-btn" data-g="8" onclick="gPickGrade(8,this)">Gr 8</button>
+    <button class="gsel-btn" data-g="9" onclick="gPickGrade(9,this)">Gr 9</button>
+  </div>
+  <div class="games-grid">
+    <!-- Speed Math -->
+    <div class="g-card">
+      <div class="g-icon">⚡</div><h3>Speed Math</h3>
+      <p>Race the clock! Mental maths in 60 seconds.</p>
+      <div id="sm-start"><button class="btn-game" style="background:linear-gradient(135deg,var(--math),#f59e0b);color:#04060f;" onclick="smStart()">▶ Start</button></div>
+      <div id="sm-play" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">⏱ <span id="smTime">60</span>s</span>
+          <div style="display:flex;gap:5px"><span class="sm-pill">✅ <span id="smRight">0</span></span><span class="sm-pill">❌ <span id="smWrong">0</span></span></div>
+        </div>
+        <div class="tbar"><div class="tbar-fill" id="smTBar" style="width:100%;background:var(--math)"></div></div>
+        <div class="sm-question" id="smQ">3 + 7 = ?</div>
+        <input class="sm-inp" id="smInp" type="number" placeholder="?" autocomplete="off" onkeydown="if(event.key==='Enter')smCheck()"/>
+        <div style="font-family:'Fredoka One',cursive;font-size:.95rem;text-align:center;padding:3px;min-height:24px;" id="smFlash"></div>
+        <button class="btn-game" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--text);" onclick="smCheck()">Submit ✓</button>
+      </div>
+      <div id="sm-result" style="display:none;text-align:center;padding:7px 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.9rem;color:var(--math)">⚡ <span id="smFScore">0</span></div>
+        <div style="color:var(--muted);font-size:.78rem;margin:4px 0 10px" id="smFMsg"></div>
+        <button class="btn-game" style="background:linear-gradient(135deg,var(--math),#f59e0b);color:#04060f;" onclick="smStart()">▶ Again</button>
+      </div>
+    </div>
+    <!-- Science Streak -->
+    <div class="g-card">
+      <div class="g-icon">🔬</div><h3>Science Streak</h3>
+      <p>Build your streak — one wrong ends it!</p>
+      <div id="ss-start"><button class="btn-game" style="background:linear-gradient(135deg,var(--sci),#0d9488);color:#04060f;" onclick="ssStart()">▶ Start</button></div>
+      <div id="ss-play" style="display:none">
+        <div style="display:flex;justify-content:space-between;margin-bottom:9px">
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">🔥 Streak: <span id="ssStreak">0</span></span>
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--g9)">Best: <span id="ssBest">0</span></span>
+        </div>
+        <div class="streak-q" id="ssQ"></div>
+        <div class="streak-opts" id="ssOpts"></div>
+        <div class="streak-fact" id="ssFact"></div>
+        <div id="ssNext" style="display:none;margin-top:7px;text-align:right"><button style="background:transparent;border:1.5px solid rgba(255,255,255,.12);border-radius:50px;color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;padding:5px 14px;cursor:pointer;font-size:.76rem;" onclick="ssNext()">Next →</button></div>
+      </div>
+      <div id="ss-result" style="display:none;text-align:center;padding:7px 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.9rem;color:var(--sci)">🔥 <span id="ssFStreak">0</span></div>
+        <div style="color:var(--muted);font-size:.78rem;margin:4px 0 10px" id="ssFMsg"></div>
+        <button class="btn-game" style="background:linear-gradient(135deg,var(--sci),#0d9488);color:#04060f;" onclick="ssStart()">▶ Again</button>
+      </div>
+    </div>
+    <!-- Math Blitz -->
+    <div class="g-card">
+      <div class="g-icon">🔢</div><h3>Math Blitz</h3>
+      <p>15 rapid-fire maths questions + full review!</p>
+      <div id="mb-start"><button class="btn-game" style="background:linear-gradient(135deg,var(--g8),#7c3aed);color:#fff;" onclick="mbStart()">▶ Start</button></div>
+      <div id="mb-play" style="display:none">
+        <div style="display:flex;justify-content:space-between;margin-bottom:7px">
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">Q <span id="mbIdx">1</span>/15</span>
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--g8)">⭐ <span id="mbScore">0</span></span>
+        </div>
+        <div class="streak-q" id="mbQ"></div>
+        <div class="streak-opts" id="mbOpts"></div>
+        <div class="streak-fact" id="mbFact"></div>
+        <div id="mbNext" style="display:none;margin-top:7px;text-align:right"><button style="background:transparent;border:1.5px solid rgba(255,255,255,.12);border-radius:50px;color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;padding:5px 14px;cursor:pointer;font-size:.76rem;" onclick="mbNext()">Next →</button></div>
+      </div>
+      <div id="mb-result" style="display:none;text-align:center;padding:7px 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.9rem;color:var(--g8)">⭐ <span id="mbFScore">0</span>/15</div>
+        <div style="color:var(--muted);font-size:.78rem;margin:4px 0 10px" id="mbFMsg"></div>
+        <button class="btn-game" style="background:linear-gradient(135deg,var(--g8),#7c3aed);color:#fff;" onclick="mbStart()">▶ Again</button>
+        <div id="mb-review" style="margin-top:10px;text-align:left"></div>
+      </div>
+    </div>
+    <!-- Term Match -->
+    <div class="g-card">
+      <div class="g-icon">🎯</div><h3>Term Match</h3>
+      <p>Match terms to definitions — clear the board!</p>
+      <div id="tm-start"><button class="btn-game" style="background:linear-gradient(135deg,var(--g6),#16a34a);color:#04060f;" onclick="tmStart()">▶ Start</button></div>
+      <div id="tm-play" style="display:none">
+        <div style="display:flex;justify-content:space-between;margin-bottom:7px">
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">Pairs left: <span id="tmLeft">6</span></span>
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--g6)">✅ <span id="tmMatched">0</span></span>
+        </div>
+        <div class="match-grid" id="tmGrid"></div>
+        <div style="font-size:.7rem;color:var(--muted);text-align:center">Tap a term, then tap its definition!</div>
+      </div>
+      <div id="tm-result" style="display:none;text-align:center;padding:7px 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--g6)">🎯 Cleared!</div>
+        <div style="color:var(--muted);font-size:.78rem;margin:4px 0 10px" id="tmFMsg"></div>
+        <button class="btn-game" style="background:linear-gradient(135deg,var(--g6),#16a34a);color:#04060f;" onclick="tmStart()">▶ Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ NOTES ══════════ -->
+<div class="page" id="pg-notes" style="display:none">
+<div class="inner">
+  <div class="sec-head">
+    <div class="sec-title">📋 <span style="color:var(--g6)">Notes</span> &amp; Formulas</div>
+    <p class="sec-sub">Key formulas, concepts and examples for Maths, Science &amp; English.</p>
+  </div>
+  <div class="notes-nav">
+    <button class="ntab on" onclick="showNotes('n6',this)">Grade 6</button>
+    <button class="ntab" onclick="showNotes('n7',this)">Grade 7</button>
+    <button class="ntab" onclick="showNotes('n8',this)">Grade 8</button>
+    <button class="ntab" onclick="showNotes('n9',this)">Grade 9</button>
+  </div>
+  <div id="note-n6" class="note-panel on"></div>
+  <div id="note-n7" class="note-panel"></div>
+  <div id="note-n8" class="note-panel"></div>
+  <div id="note-n9" class="note-panel"></div>
+</div>
+</div>
+
+<!-- ══════════ ASK GROQ ══════════ -->
+<div class="page" id="pg-groq" style="display:none">
+<div class="inner" style="max-width:680px">
+  <div class="sec-head">
+    <div class="sec-title">🤖 <span style="color:var(--groq)">Ask Groq</span> AI</div>
+    <p class="sec-sub">Get instant help with any Maths, Science or English question — powered by Groq's free AI.</p>
+  </div>
+
+  <div class="groq-key-card">
+    <h3>🔑 Your Groq API Key</h3>
+    <div class="groq-steps">
+      <strong>Get your FREE key in 2 minutes:</strong><br/>
+      1. Go to <a href="https://console.groq.com" target="_blank">console.groq.com</a> and sign up<br/>
+      2. Click <strong>API Keys</strong> → <strong>Create API Key</strong><br/>
+      3. Copy the key and paste it below ↓<br/>
+      <span style="color:rgba(74,222,128,.8)">✓ 100% free · No credit card needed · 14,400 requests/day</span>
+    </div>
+    <input type="password" class="key-inp" id="groqKeyInp" placeholder="gsk_...paste your key here"/>
+    <div class="key-btns">
+      <button class="btn-groq" onclick="saveGroqKey()">💾 Save Key</button>
+      <button class="btn-s" style="font-size:.82rem;padding:8px 16px;" onclick="clearGroqKey()">Clear</button>
+    </div>
+    <div class="key-status" id="keyStatus">
+      <div class="ks-dot" id="ksDot"></div>
+      <span id="ksText">No key set yet</span>
+    </div>
+  </div>
+
+  <div class="groq-chat-card">
+    <h3>💬 Chat with Your AI Tutor</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Ask anything — word problems, explanations, exam tips, grammar questions!</p>
+    <div style="margin-bottom:9px">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:5px">Quick Prompts</div>
+      <div class="groq-topics">
+        <span class="topic-chip" onclick="setPrompt('Explain ratios and proportions simply for Grade 7')">📐 Ratios</span>
+        <span class="topic-chip" onclick="setPrompt('Give me a word problem on algebra for Grade 8 and solve it step by step')">🔣 Algebra Word Problem</span>
+        <span class="topic-chip" onclick="setPrompt('Explain probability basics with examples')">🎲 Probability</span>
+        <span class="topic-chip" onclick="setPrompt('Explain sets: union, intersection, and complement with examples')">🔵 Sets</span>
+        <span class="topic-chip" onclick="setPrompt('Give me 5 examples of subject-verb agreement rules with sentences')">📖 Subject-Verb</span>
+        <span class="topic-chip" onclick="setPrompt('Explain 5 common English idioms with their meanings and examples')">💬 Idioms</span>
+        <span class="topic-chip" onclick="setPrompt('Explain Newton\'s laws of motion with real-life examples')">⚙️ Forces</span>
+        <span class="topic-chip" onclick="setPrompt('Explain density and volume with examples and formulas')">🧪 Density &amp; Volume</span>
+        <span class="topic-chip" onclick="setPrompt('Explain living things: characteristics, classification and cells')">🌱 Living Things</span>
+      </div>
+    </div>
+    <div class="chat-box" id="chatBox">
+      <div class="msg ai">👋 Hi! I'm your AI study tutor powered by Groq. Set your API key above, then ask me anything about Maths, Science or English — I'm here to help you learn! 🚀</div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-inp" id="chatInp" type="text" placeholder="Ask me anything… e.g. 'Explain probability'" onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" id="chatSendBtn" onclick="sendChat()">Send 🚀</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>Made with 💜 by <span class="dev">Gyamerah Philimon</span> · Study Squad — Grades 6–9 · Maths · Science · English<br/>
+<span style="font-size:.66rem;opacity:.5">All content runs in your browser · 100% private · No data ever leaves your device</span></footer>
+
+<script>
+// ═══════════════════════════════════════════
+//  STARS
+// ═══════════════════════════════════════════
+(function(){
+  const el=document.getElementById('starsEl');
+  for(let i=0;i<110;i++){
+    const s=document.createElement('div');s.className='star';
+    const z=Math.random()*2+.5;
+    s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*4}s;`;
+    el.appendChild(s);
+  }
+})();
+
+// ═══════════════════════════════════════════
+//  STATE & HELPERS
+// ═══════════════════════════════════════════
+let activeGrade=7, activeQSubj='mix';
+let quizQs=[], quizAnswered=[], quizUserAnswers=[], quizScore=0;
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br/>');}
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
+function rn(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function toast(msg,d=2500){document.querySelectorAll('.toast').forEach(t=>t.remove());const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),d);}
+
+// ═══════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════
+function showPage(id){
+  ['home','quiz','games','notes','groq'].forEach(p=>{
+    document.getElementById('pg-'+p).style.display=p===id?'':'none';
+    const nb=document.getElementById('nb-'+p);if(nb)nb.className='nbtn'+(p==='groq'?' groq-btn':'')+(p===id?' on':'');
+  });
+  window.scrollTo(0,0);
+  if(id==='notes')renderNotes();
+  if(id==='quiz')syncQSel();
+  if(id==='games')syncGSel();
+  if(id==='groq')updateKeyStatus();
+}
+function selectGrade(g,el){
+  activeGrade=g;
+  document.querySelectorAll('.gbh').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');syncQSel();syncGSel();
+}
+function syncQSel(){
+  document.querySelectorAll('#pg-quiz .gsel-btn').forEach(b=>b.classList.toggle('on',+b.dataset.g===activeGrade));
+  ['math','sci','eng','mix'].forEach(s=>{const b=document.getElementById('sb-'+s);if(b)b.className='ssel-btn '+s+(activeQSubj===s?' on':'');});
+}
+function syncGSel(){document.querySelectorAll('#pg-games .gsel-btn').forEach(b=>b.classList.toggle('on',+b.dataset.g===activeGrade));}
+function qPickGrade(g,el){activeGrade=g;document.querySelectorAll('#pg-quiz .gsel-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
+function gPickGrade(g,el){activeGrade=g;document.querySelectorAll('#pg-games .gsel-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
+function qPickSubj(s){activeQSubj=s;syncQSel();}
+
+// ═══════════════════════════════════════════
+//  QUESTION BANK — 300+ QUESTIONS
+// ═══════════════════════════════════════════
+const QB={
+6:{
+math:[
+  // Basic arithmetic & number
+  {type:'mc',q:'What is ¾ + ½?',opts:['1¼','1','5/6','¾'],c:0,explain:'Common denominator 4: 3/4+2/4=5/4=1¼'},
+  {type:'mc',q:'What is 25% of 80?',opts:['20','25','16','30'],c:0,explain:'25%=¼. 80÷4=20'},
+  {type:'mc',q:'Area of a rectangle 9 cm × 4 cm?',opts:['36 cm²','26 cm²','13 cm²','72 cm²'],c:0,explain:'Area=l×w=9×4=36 cm²'},
+  {type:'tf',q:'In BODMAS, multiplication is done before addition.',opts:['✅ True','❌ False'],c:0,explain:'BODMAS: Brackets, Orders, Division/Multiplication, Addition/Subtraction.'},
+  {type:'mc',q:'⅔ × ¾ = ?',opts:['½','5/7','6/7','¼'],c:0,explain:'(2×3)/(3×4)=6/12=½'},
+  {type:'mc',q:'0.75 as a simplified fraction?',opts:['¾','7/5','75/10','3/5'],c:0,explain:'0.75=75/100=¾'},
+  {type:'mc',q:'6² = ?',opts:['36','12','62','18'],c:0,explain:'6²=6×6=36'},
+  {type:'mc',q:'Perimeter of square with side 7 cm?',opts:['28 cm','14 cm','49 cm','21 cm'],c:0,explain:'P=4×s=4×7=28 cm'},
+  {type:'mc',q:'Median of: 3, 7, 1, 9, 5?',opts:['5','3','7','1'],c:0,explain:'Sort: 1,3,5,7,9. Middle=5'},
+  {type:'mc',q:'3 + 2 × 5 = ?',opts:['13','25','16','10'],c:0,explain:'Multiplication first: 2×5=10, then 3+10=13'},
+  {type:'mc',q:'15% of 200 = ?',opts:['30','15','25','20'],c:0,explain:'0.15×200=30'},
+  {type:'mc',q:'-4 + 7 = ?',opts:['3','-3','11','-11'],c:0,explain:'Start at -4, add 7: -4+7=3'},
+  {type:'tf',q:'A prime number has exactly two factors: 1 and itself.',opts:['✅ True','❌ False'],c:0,explain:'E.g. 7 has only factors 1 and 7.'},
+  {type:'mc',q:'LCM of 4 and 6?',opts:['12','24','2','6'],c:0,explain:'Multiples of 4: 4,8,12. Of 6: 6,12. LCM=12'},
+  {type:'mc',q:'1.2 as a percentage?',opts:['120%','12%','1.2%','0.12%'],c:0,explain:'×100: 1.2×100=120%'},
+  {type:'mc',q:'Volume of box 3 cm × 4 cm × 5 cm?',opts:['60 cm³','12 cm³','47 cm³','20 cm³'],c:0,explain:'V=l×w×h=3×4×5=60 cm³'},
+  {type:'fb',q:'The ___ is the average: sum divided by count.',opts:['mean','median','mode','range'],c:0,explain:'Mean=sum÷count'},
+  {type:'fb',q:'A ___ compares two quantities using division.',opts:['ratio','fraction','decimal','percent'],c:0,explain:'Ratio compares quantities, e.g. 3:4'},
+  // Ratio & Proportion
+  {type:'mc',q:'Ratio is 2:5 and first quantity is 10. What is the second?',opts:['25','4','15','20'],c:0,explain:'Scale: 10÷2=5. Second=5×5=25'},
+  {type:'mc',q:'Simplify ratio 12:18.',opts:['2:3','3:2','4:6','6:9'],c:0,explain:'HCF(12,18)=6. 12÷6=2, 18÷6=3. Answer: 2:3'},
+  {type:'mc',q:'If 4 pens cost $2.00, how much do 10 pens cost?',opts:['$5.00','$4.00','$6.00','$8.00'],c:0,explain:'Unit price=$0.50. 10×$0.50=$5.00'},
+  {type:'mc',q:'A recipe for 4 uses 200 g flour. For 10, you need:',opts:['500 g','400 g','800 g','250 g'],c:0,explain:'Unit: 200÷4=50 g each. 50×10=500 g'},
+  {type:'tf',q:'If a:b = 3:4, then b:a = 4:3.',opts:['✅ True','❌ False'],c:0,explain:'Reversing a ratio just swaps the two values.'},
+  // Sets (Grade 6 intro)
+  {type:'mc',q:'If A = {1,2,3} and B = {2,3,4}, what is A ∩ B (intersection)?',opts:['{2,3}','{1,2,3,4}','{1,4}','{2}'],c:0,explain:'Intersection = elements in BOTH sets = {2,3}'},
+  {type:'mc',q:'If A = {1,2,3} and B = {2,3,4}, what is A ∪ B (union)?',opts:['{1,2,3,4}','{2,3}','{1,4}','{1,2,3,4,4}'],c:0,explain:'Union = all elements combined (no repeats) = {1,2,3,4}'},
+  {type:'fb',q:'A set with no elements is called the ___ set.',opts:['empty','null','zero','blank'],c:0,explain:'Empty set = {} or ∅. It has zero elements.'},
+  // Probability
+  {type:'mc',q:'A bag has 3 red and 7 blue balls. P(red) = ?',opts:['3/10','7/10','1/3','3/7'],c:0,explain:'P(red)=favourable/total=3/10'},
+  {type:'mc',q:'What is the probability of flipping heads on a fair coin?',opts:['1/2','1/4','1','0'],c:0,explain:'2 outcomes (H,T), 1 favourable. P=1/2'},
+  {type:'tf',q:'A probability of 0 means an event is impossible.',opts:['✅ True','❌ False'],c:0,explain:'P=0 = impossible. P=1 = certain.'},
+],
+science:[
+  {type:'mc',q:'Basic unit of life?',opts:['Cell','Atom','Organ','Tissue'],c:0,explain:'The cell is the smallest unit of all living things.'},
+  {type:'mc',q:'Which is found in plants but NOT animals?',opts:['Cell wall','Nucleus','Mitochondria','Cell membrane'],c:0,explain:'Plants have a rigid cellulose cell wall.'},
+  {type:'tf',q:'Photosynthesis produces oxygen as a by-product.',opts:['✅ True','❌ False'],c:0,explain:'CO₂+H₂O+light→glucose+O₂. Oxygen is released.'},
+  {type:'mc',q:'In a food chain, producers are:',opts:['Plants','Animals','Fungi','Bacteria'],c:0,explain:'Plants make their own food using photosynthesis.'},
+  {type:'mc',q:'Which state of matter has definite shape AND volume?',opts:['Solid','Liquid','Gas','Plasma'],c:0,explain:'Solids have tightly packed particles — fixed shape and volume.'},
+  {type:'tf',q:'Melting ice is a physical change.',opts:['✅ True','❌ False'],c:0,explain:'Melting is physical — the substance stays H₂O.'},
+  {type:'mc',q:'The powerhouse of the cell is the:',opts:['Mitochondria','Nucleus','Ribosome','Vacuole'],c:0,explain:'Mitochondria produce ATP (energy).'},
+  {type:'mc',q:'Which rock type forms from cooled magma?',opts:['Igneous','Sedimentary','Metamorphic','Fossil'],c:0,explain:'Igneous rock forms from cooled/solidified magma.'},
+  {type:'mc',q:'Most abundant gas in Earth\'s atmosphere?',opts:['Nitrogen','Oxygen','CO₂','Argon'],c:0,explain:'N₂ ≈ 78%. O₂ ≈ 21%.'},
+  {type:'mc',q:'Which organ pumps blood?',opts:['Heart','Lungs','Liver','Kidneys'],c:0,explain:'The heart circulates blood through the body.'},
+  {type:'mc',q:'Water turning to vapour is called:',opts:['Evaporation','Condensation','Precipitation','Transpiration'],c:0,explain:'Evaporation: liquid→gas driven by heat.'},
+  {type:'mc',q:'What force pulls objects toward Earth?',opts:['Gravity','Friction','Magnetism','Tension'],c:0,explain:'Gravity attracts masses toward Earth\'s centre.'},
+  // Living things
+  {type:'mc',q:'Which is NOT a characteristic of living things?',opts:['Made of metal','Growth','Reproduction','Responds to stimuli'],c:0,explain:'All living things: grow, reproduce, respond, respire, move, excrete, and are made of cells.'},
+  {type:'mc',q:'The 7 characteristics of life can be remembered as MRS GREN. What does R stand for?',opts:['Reproduction','Respiration','Response','Rotation'],c:0,explain:'MRS GREN: Movement, Respiration, Sensitivity, Growth, Reproduction, Excretion, Nutrition.'},
+  {type:'mc',q:'Animals are classified in which kingdom?',opts:['Animalia','Plantae','Fungi','Protista'],c:0,explain:'The 5 kingdoms: Animalia, Plantae, Fungi, Protista, Monera (bacteria).'},
+  {type:'tf',q:'Decomposers recycle nutrients back into the soil.',opts:['✅ True','❌ False'],c:0,explain:'Bacteria and fungi break down dead matter, releasing nutrients.'},
+  // Forces
+  {type:'mc',q:'Force is measured in:',opts:['Newtons (N)','Joules (J)','Kilograms (kg)','Watts (W)'],c:0,explain:'Force is measured in Newtons, named after Sir Isaac Newton.'},
+  {type:'mc',q:'Which force slows down a moving object?',opts:['Friction','Gravity','Magnetism','Thrust'],c:0,explain:'Friction opposes motion between two surfaces.'},
+  {type:'tf',q:'A balanced force means zero net force and no change in motion.',opts:['✅ True','❌ False'],c:0,explain:'Balanced forces cancel out — object stays still or moves at constant speed.'},
+],
+english:[
+  // Subject-verb agreement
+  {type:'mc',q:'"The dogs ___ barking loudly." Choose the correct verb.',opts:['are','is','was','be'],c:0,explain:'"Dogs" is plural, so use "are". Plural subject = plural verb.'},
+  {type:'mc',q:'"Neither the cat nor the dogs ___ outside." Which verb fits?',opts:['are','is','was','were'],c:0,explain:'With "neither...nor", the verb agrees with the closest noun ("dogs" = plural → "are").'},
+  {type:'tf',q:'"The team is playing well." — This is grammatically correct.',opts:['✅ True','❌ False'],c:0,explain:'Collective nouns (team, class, family) can take singular verbs when acting as one unit.'},
+  {type:'mc',q:'"Everyone ___ finished their work." Choose the correct verb.',opts:['has','have','had','are'],c:0,explain:'"Everyone" is always singular. Use "has".'},
+  {type:'mc',q:'"The news ___ shocking." Choose the correct verb.',opts:['is','are','were','be'],c:0,explain:'"News" looks plural but is singular — use "is".'},
+  {type:'mc',q:'"She and I ___ going to the market." Choose correct verb.',opts:['are','is','was','am'],c:0,explain:'"She and I" = compound subject (plural) → "are".'},
+  {type:'fb',q:'A subject and verb must ___ in number (singular or plural).',opts:['agree','match','connect','relate'],c:0,explain:'Subject-verb agreement: singular subject→singular verb; plural subject→plural verb.'},
+  // Idioms
+  {type:'mc',q:'"It\'s raining cats and dogs" means:',opts:['It\'s raining very heavily','Animals are falling','It\'s a light drizzle','The weather is nice'],c:0,explain:'This idiom means it\'s raining very hard.'},
+  {type:'mc',q:'"Break a leg!" means:',opts:['Good luck!','Be careful!','Run fast!','Fall down!'],c:0,explain:'"Break a leg" is used to wish someone good luck, especially before a performance.'},
+  {type:'mc',q:'"Hit the books" means:',opts:['Start studying','Throw books away','Visit a library','Read slowly'],c:0,explain:'"Hit the books" means to start studying seriously.'},
+  {type:'mc',q:'"Cost an arm and a leg" means:',opts:['Very expensive','Painful','A medical bill','Cheap deal'],c:0,explain:'When something "costs an arm and a leg" it is very expensive.'},
+  {type:'mc',q:'"Under the weather" means:',opts:['Feeling sick','Outside in rain','Happy','Confused'],c:0,explain:'"Under the weather" means feeling ill or unwell.'},
+  {type:'mc',q:'"Bite the bullet" means:',opts:['Endure a tough situation','Eat something','Be aggressive','Run away'],c:0,explain:'"Bite the bullet" means to endure a painful or difficult situation bravely.'},
+  {type:'tf',q:'"Let the cat out of the bag" means to reveal a secret.',opts:['✅ True','❌ False'],c:0,explain:'This idiom means to accidentally reveal a secret or surprise.'},
+  {type:'mc',q:'"The ball is in your court" means:',opts:['It\'s your turn to decide','Play sport','You scored','Start again'],c:0,explain:'This idiom means the decision or next action is up to you.'},
+  {type:'mc',q:'"A blessing in disguise" means:',opts:['Something good that seemed bad at first','A hidden gift','A surprise party','Wearing a costume'],c:0,explain:'A situation that turned out to be good even though it first seemed negative.'},
+  {type:'fb',q:'An ___ is a phrase whose meaning is different from the literal meanings of the words.',opts:['idiom','adjective','adverb','simile'],c:0,explain:'Idioms are figurative expressions, e.g. "kick the bucket" means to die.'},
+]
+},
+7:{
+math:[
+  {type:'mc',q:'Solve: 3x + 5 = 20',opts:['x=5','x=4','x=6','x=3'],c:0,explain:'3x=15, x=5'},
+  {type:'mc',q:'Area of circle with radius 7? (π≈3.14)',opts:['153.86','43.96','49','87.92'],c:0,explain:'A=πr²=3.14×49≈153.86'},
+  {type:'tf',q:'Sum of angles in any triangle = 180°.',opts:['✅ True','❌ False'],c:0,explain:'All three interior angles of any triangle add to 180°.'},
+  {type:'mc',q:'-8 - (-3) = ?',opts:['-5','-11','11','5'],c:0,explain:'Subtract negative = add: -8+3=-5'},
+  {type:'mc',q:'Probability of rolling a 3 on a fair die?',opts:['1/6','1/3','1/2','3/6'],c:0,explain:'1 out of 6 outcomes. P=1/6'},
+  {type:'mc',q:'Mean of 12, 8, 15, 5, 10?',opts:['10','12','8','15'],c:0,explain:'Sum=50. Mean=50÷5=10'},
+  {type:'fb',q:'A letter representing an unknown value is called a ___.',opts:['variable','constant','coefficient','exponent'],c:0,explain:'Variables (x, y) represent unknown quantities.'},
+  {type:'mc',q:'Simplify: 4x + 3x - x',opts:['6x','8x','7x','4x'],c:0,explain:'4+3-1=6. Answer: 6x'},
+  {type:'mc',q:'Circumference of circle with diameter 10? (π≈3.14)',opts:['31.4','62.8','78.5','15.7'],c:0,explain:'C=πd=3.14×10=31.4'},
+  {type:'mc',q:'HCF of 24 and 36?',opts:['12','6','4','18'],c:0,explain:'HCF(24,36)=12'},
+  // Algebra word problems
+  {type:'mc',q:'Alex has x apples. He buys 5 more and now has 14. Find x.',opts:['9','5','14','19'],c:0,explain:'x+5=14 → x=9'},
+  {type:'mc',q:'A number doubled and decreased by 3 equals 11. What is the number?',opts:['7','4','8','5'],c:0,explain:'2n-3=11 → 2n=14 → n=7'},
+  {type:'mc',q:'Two consecutive numbers sum to 27. What are they?',opts:['13 and 14','12 and 15','10 and 17','11 and 16'],c:0,explain:'n+(n+1)=27 → 2n=26 → n=13. Numbers: 13,14.'},
+  {type:'mc',q:'A bus has y passengers. 12 get off and 7 get on; now 23. Find y.',opts:['28','18','35','16'],c:0,explain:'y-12+7=23 → y-5=23 → y=28'},
+  {type:'mc',q:'3 times a number plus 2 equals 20. The number is:',opts:['6','7','8','5'],c:0,explain:'3n+2=20 → 3n=18 → n=6'},
+  // Ratio & Proportion
+  {type:'mc',q:'A map scale is 1:500. A distance of 3 cm on map = ? in real life.',opts:['1500 cm','500 cm','300 cm','150 cm'],c:0,explain:'Multiply by scale: 3×500=1500 cm'},
+  {type:'mc',q:'John and Mary share $60 in ratio 2:3. How much does John get?',opts:['$24','$36','$20','$30'],c:0,explain:'Total parts=5. Each part=$12. John=2×$12=$24'},
+  {type:'tf',q:'If 5 workers finish in 10 days, 10 workers finish the same job in 5 days (inverse proportion).',opts:['✅ True','❌ False'],c:0,explain:'More workers = fewer days. This is inverse proportion.'},
+  // Sets
+  {type:'mc',q:'A={2,4,6,8} B={4,8,12}. How many elements in A∪B?',opts:['5','4','6','7'],c:0,explain:'A∪B={2,4,6,8,12}. 5 elements.'},
+  {type:'mc',q:'The complement of a set A contains:',opts:['All elements NOT in A','All elements in A','Elements in both A and B','Only even numbers'],c:0,explain:"The complement A' = all elements in the universal set that are not in A."},
+  {type:'fb',q:'A ___ diagram uses overlapping circles to show set relationships.',opts:['Venn','bar','pie','scatter'],c:0,explain:'Venn diagrams show unions, intersections and complements visually.'},
+  // Probability
+  {type:'mc',q:'A spinner has 4 equal sections: red, blue, green, yellow. P(not red)?',opts:['3/4','1/4','1/2','2/4'],c:0,explain:'P(not red)=1-P(red)=1-1/4=3/4'},
+  {type:'mc',q:'A die is rolled. P(even)?',opts:['1/2','1/3','2/3','1/6'],c:0,explain:'Even numbers: 2,4,6. P=3/6=1/2'},
+  {type:'mc',q:'Two coins are tossed. P(both heads)?',opts:['1/4','1/2','3/4','1'],c:0,explain:'Outcomes: HH,HT,TH,TT. P(HH)=1/4'},
+],
+science:[
+  {type:'mc',q:'Smallest particle of an element?',opts:['Atom','Molecule','Cell','Electron'],c:0,explain:'Atoms are the smallest units with element properties.'},
+  {type:'mc',q:'Density formula?',opts:['D=m÷v','D=m×v','D=v÷m','D=m+v'],c:0,explain:'Density = mass ÷ volume. Units: g/cm³'},
+  {type:'mc',q:'Force that resists motion between surfaces?',opts:['Friction','Gravity','Magnetism','Tension'],c:0,explain:'Friction opposes relative motion between surfaces.'},
+  {type:'mc',q:'Photosynthesis equation?',opts:['CO₂+H₂O+light→glucose+O₂','O₂+glucose→CO₂+H₂O','H₂O→H₂+O','CO₂+O₂→H₂O'],c:0,explain:'Plants convert CO₂+H₂O using sunlight into glucose and O₂.'},
+  {type:'tf',q:'Vertebrates are animals with a backbone.',opts:['✅ True','❌ False'],c:0,explain:'Vertebrates have a spinal column. Invertebrates do not.'},
+  {type:'mc',q:'Speed = ?',opts:['Distance÷Time','Distance×Time','Time÷Distance','Mass÷Volume'],c:0,explain:'Speed=d÷t. E.g. 100 km in 2 h = 50 km/h'},
+  // Living things classification
+  {type:'mc',q:'Which classification level is most specific?',opts:['Species','Genus','Family','Order'],c:0,explain:'Taxonomy: Kingdom→Phylum→Class→Order→Family→Genus→Species. Species is most specific.'},
+  {type:'mc',q:'Plants that produce seeds in cones are called:',opts:['Conifers','Ferns','Mosses','Angiosperms'],c:0,explain:'Gymnosperms (e.g. pine trees) produce naked seeds in cones.'},
+  {type:'tf',q:'Bacteria are prokaryotes — they have no membrane-bound nucleus.',opts:['✅ True','❌ False'],c:0,explain:'Prokaryotes lack a nuclear membrane. Eukaryotes (plants, animals, fungi) have a nucleus.'},
+  {type:'mc',q:'Which process releases energy from glucose?',opts:['Respiration','Photosynthesis','Transpiration','Digestion'],c:0,explain:'Cellular respiration breaks down glucose to release ATP energy.'},
+  // Forces
+  {type:'mc',q:'An unbalanced force causes an object to:',opts:['Change speed or direction','Stay still','Move at constant speed','Float'],c:0,explain:'Net (unbalanced) force causes acceleration — changes in speed or direction.'},
+  {type:'mc',q:'Weight = ?',opts:['Mass × gravity','Mass ÷ gravity','Mass + gravity','Mass only'],c:0,explain:'Weight (N) = mass (kg) × gravitational field strength (g ≈ 10 m/s²)'},
+  {type:'tf',q:'A 10 kg object on Earth weighs 100 N (g=10 m/s²).',opts:['✅ True','❌ False'],c:0,explain:'W=mg=10×10=100 N ✓'},
+  // Density & Volume
+  {type:'mc',q:'An object has mass 50 g and volume 25 cm³. Density?',opts:['2 g/cm³','75 g/cm³','1250 g/cm³','0.5 g/cm³'],c:0,explain:'D=m÷v=50÷25=2 g/cm³'},
+  {type:'mc',q:'Water has density 1 g/cm³. An object with D=0.8 g/cm³ will:',opts:['Float','Sink','Dissolve','Explode'],c:0,explain:'Objects less dense than water float. D<1 g/cm³ → floats.'},
+],
+english:[
+  {type:'mc',q:'"The children ___ very noisy." Choose the correct verb.',opts:['are','is','was','be'],c:0,explain:'"Children" is plural → "are".'},
+  {type:'mc',q:'"Physics ___ my favourite subject." Choose the correct verb.',opts:['is','are','were','be'],c:0,explain:'Subject names like Physics/Mathematics take singular verbs.'},
+  {type:'tf',q:'"The class of students are very bright." — "are" is correct here.',opts:['✅ True','❌ False'],c:0,explain:'When "class" refers to individuals (not one unit), plural verb "are" is acceptable.'},
+  {type:'mc',q:'"Neither he nor his friends ___ on time." Choose the correct verb.',opts:['were','was','is','are'],c:0,explain:'With "neither...nor", agree with the closer noun: "friends" (plural) → "were".'},
+  {type:'mc',q:'"Spill the beans" means:',opts:['Reveal a secret','Cook food','Make a mess','Be quiet'],c:0,explain:'"Spill the beans" = reveal secret information.'},
+  {type:'mc',q:'"Hit the nail on the head" means:',opts:['Be exactly right','Hurt yourself','Build something','Miss the point'],c:0,explain:'This idiom means you described or identified something exactly correctly.'},
+  {type:'mc',q:'"Piece of cake" means:',opts:['Very easy','Delicious food','A reward','Hard work'],c:0,explain:'"Piece of cake" means something is very easy to do.'},
+  {type:'mc',q:'"Once in a blue moon" means:',opts:['Very rarely','Always','Every month','At night'],c:0,explain:'"Once in a blue moon" means something happens very infrequently.'},
+  {type:'fb',q:'"Don\'t judge a book by its ___" — complete this idiom.',opts:['cover','title','author','pages'],c:0,explain:'Don\'t judge a book by its cover = don\'t judge by appearances.'},
+  {type:'mc',q:'Which sentence has correct subject-verb agreement?',opts:['She runs every day.','She run every day.','She are running.','She were running.'],c:0,explain:'"She" is 3rd person singular — "runs" is correct.'},
+]
+},
+8:{
+math:[
+  {type:'mc',q:'Right triangle: legs 3 and 4. Hypotenuse?',opts:['5','7','12','6'],c:0,explain:'a²+b²=c². 9+16=25. √25=5'},
+  {type:'mc',q:'Slope through (0,2) and (3,8)?',opts:['2','3','6','1/2'],c:0,explain:'m=(8-2)÷(3-0)=6÷3=2'},
+  {type:'mc',q:'3⁴ = ?',opts:['81','12','27','64'],c:0,explain:'3⁴=3×3×3×3=81'},
+  {type:'mc',q:'Solve: 4x - 3 = 2x + 7',opts:['x=5','x=4','x=6','x=2'],c:0,explain:'4x-2x=7+3 → 2x=10 → x=5'},
+  {type:'tf',q:'Slope of a horizontal line = 0.',opts:['✅ True','❌ False'],c:0,explain:'Horizontal line: Δy=0, so m=0÷Δx=0.'},
+  {type:'mc',q:'0.000045 in scientific notation?',opts:['4.5×10⁻⁵','4.5×10⁵','45×10⁻⁶','0.45×10⁻⁴'],c:0,explain:'Move decimal 5 places right: 4.5×10⁻⁵'},
+  {type:'mc',q:'Expand (x+3)(x+2):',opts:['x²+5x+6','x²+6x+5','x²+3x+6','x²+5x+5'],c:0,explain:'FOIL: x²+2x+3x+6=x²+5x+6'},
+  {type:'fb',q:'y=mx+c is the equation of a ___ line.',opts:['straight','parabola','circle','curve'],c:0,explain:'y=mx+c: m=gradient, c=y-intercept.'},
+  // Algebra word problems
+  {type:'mc',q:'A rectangle is 3 cm longer than wide. Perimeter=46 cm. Find the width.',opts:['10 cm','13 cm','8 cm','12 cm'],c:0,explain:'Let w=width. P=2(w+w+3)=46 → 2(2w+3)=46 → 2w+3=23 → w=10'},
+  {type:'mc',q:'Two numbers differ by 5. Their sum is 31. The larger number is:',opts:['18','13','20','15'],c:0,explain:'n+(n-5)=31 → 2n=36 → n=18'},
+  {type:'mc',q:'A train travels 90 km/h for 2.5 hours. Distance?',opts:['225 km','45 km','180 km','315 km'],c:0,explain:'d=v×t=90×2.5=225 km'},
+  {type:'mc',q:'Peter is 3 times as old as his son. Together they are 48. Peter\'s age?',opts:['36','12','24','16'],c:0,explain:'p=3s, p+s=48 → 4s=48 → s=12, p=36'},
+  {type:'mc',q:'Tickets cost $8 (adult) and $5 (child). 50 tickets sold for $310. How many adult tickets?',opts:['20','30','15','25'],c:0,explain:'8a+5(50-a)=310 → 3a=60 → a=20'},
+  // Ratio & Proportion
+  {type:'mc',q:'A car travels 120 km on 10 L of fuel. How far on 35 L?',opts:['420 km','350 km','240 km','480 km'],c:0,explain:'Rate: 12 km/L. 12×35=420 km'},
+  {type:'mc',q:'Increase 80 by 35%.',opts:['108','115','104','112'],c:0,explain:'80+(80×0.35)=80+28=108'},
+  {type:'mc',q:'A price drops from $200 to $150. Percentage decrease?',opts:['25%','50%','33%','20%'],c:0,explain:'Decrease=50. %=(50÷200)×100=25%'},
+  // Sets
+  {type:'mc',q:'In a class of 30: 18 like football, 15 like basketball, 8 like both. How many like neither?',opts:['5','3','7','8'],c:0,explain:'|F∪B|=18+15-8=25. Neither=30-25=5'},
+  {type:'mc',q:'A∩B means:',opts:['Elements in both A and B','All elements in A or B','Elements only in A','None of A or B'],c:0,explain:'Intersection = elements common to BOTH sets.'},
+  {type:'tf',q:'|A∪B| = |A| + |B| - |A∩B|',opts:['✅ True','❌ False'],c:0,explain:'This is the inclusion-exclusion principle for sets.'},
+  // Probability
+  {type:'mc',q:'P(A)+P(not A) = ?',opts:['1','0','2','0.5'],c:0,explain:'Complementary rule: P(A)+P(A\')=1'},
+  {type:'mc',q:'A card is drawn from 52. P(king)?',opts:['1/13','4/52','1/4','2/26'],c:0,explain:'4 kings in 52 cards. P=4/52=1/13'},
+],
+science:[
+  {type:'mc',q:'Newton\'s First Law states:',opts:['Object stays at rest unless force acts','F=ma','Every action has equal reaction','Objects fall at same speed'],c:0,explain:'Newton 1st (Inertia): unchanged motion without net force.'},
+  {type:'mc',q:'F = ma — what do the letters stand for?',opts:['Force, mass, acceleration','Friction, mass, angle','Force, momentum, area','Frequency, mass, acceleration'],c:0,explain:'F=Force(N), m=mass(kg), a=acceleration(m/s²).'},
+  {type:'tf',q:'In DNA, Adenine pairs with Thymine.',opts:['✅ True','❌ False'],c:0,explain:'A-T and C-G are the base pairs in DNA.'},
+  {type:'mc',q:'Speed of light in vacuum?',opts:['3×10⁸ m/s','3×10⁶ m/s','3×10⁵ km/h','186 m/s'],c:0,explain:'c≈3×10⁸ m/s (300,000 km/s).'},
+  {type:'mc',q:'Ohm\'s Law: V = ?',opts:['IR','I+R','I÷R','I²R'],c:0,explain:'Voltage=Current×Resistance (Ohm\'s Law).'},
+  // Living things
+  {type:'mc',q:'Which system transports oxygen in the body?',opts:['Circulatory','Digestive','Nervous','Skeletal'],c:0,explain:'The circulatory system (heart, blood, vessels) transports O₂ and nutrients.'},
+  {type:'mc',q:'Mitosis produces:',opts:['2 identical cells','4 different cells','1 cell','2 different cells'],c:0,explain:'Mitosis = growth/repair. Produces 2 genetically identical daughter cells.'},
+  {type:'tf',q:'The nucleus controls all cell activities.',opts:['✅ True','❌ False'],c:0,explain:'The nucleus contains DNA and directs protein synthesis and cell functions.'},
+  {type:'mc',q:'Which organ produces insulin?',opts:['Pancreas','Liver','Kidney','Stomach'],c:0,explain:'The pancreas secretes insulin to regulate blood sugar levels.'},
+  // Forces
+  {type:'mc',q:'A 5 kg object accelerates at 3 m/s². Net force?',opts:['15 N','1.67 N','8 N','0.6 N'],c:0,explain:'F=ma=5×3=15 N'},
+  {type:'mc',q:'Newton\'s 3rd Law:',opts:['Action=equal and opposite reaction','F=ma','Objects at rest stay at rest','Gravity pulls down'],c:0,explain:'Every force has an equal and opposite reaction force.'},
+  {type:'mc',q:'Terminal velocity is reached when:',opts:['Air resistance equals weight','Speed is zero','Acceleration is maximum','No friction acts'],c:0,explain:'Terminal velocity: drag force = weight → net force=0 → constant speed.'},
+  // Volume & Density
+  {type:'mc',q:'Volume of a cylinder r=3, h=5? (π≈3.14)',opts:['141.3','94.2','47.1','188.4'],c:0,explain:'V=πr²h=3.14×9×5=141.3 cm³'},
+  {type:'mc',q:'Mass=200 g, Volume=80 cm³. Density?',opts:['2.5 g/cm³','160 g/cm³','0.4 g/cm³','280 g/cm³'],c:0,explain:'D=m÷v=200÷80=2.5 g/cm³'},
+  {type:'mc',q:'Which sinks in water (D=1 g/cm³)?',opts:['Iron (D=7.8)','Wood (D=0.6)','Ice (D=0.9)','Cork (D=0.24)'],c:0,explain:'Objects with D>1 g/cm³ sink. Iron D=7.8>1, so it sinks.'},
+],
+english:[
+  {type:'mc',q:'"Each of the boys ___ a uniform." Choose the correct verb.',opts:['wears','wear','wore','are wearing'],c:0,explain:'"Each" is singular → "wears".'},
+  {type:'mc',q:'"The committee ___ reached a decision." Choose the correct verb.',opts:['has','have','are','were'],c:0,explain:'Collective noun acting as one unit → singular verb "has".'},
+  {type:'tf',q:'"Maths are my worst subject." — This is grammatically correct.',opts:['✅ True','❌ False'],c:1,explain:'Subjects like "Maths" and "Physics" use singular verbs: "Maths IS my worst subject."'},
+  {type:'mc',q:'"Burn bridges" means:',opts:['Destroy relationships permanently','Set fire to things','Build connections','Cross rivers'],c:0,explain:'"Burn bridges" means to permanently damage a relationship or eliminate a path back.'},
+  {type:'mc',q:'"The best of both worlds" means:',opts:['Enjoying two advantages','Choosing between two things','Being confused','Travelling a lot'],c:0,explain:'Having or enjoying two different opportunities at the same time.'},
+  {type:'mc',q:'"Sit on the fence" means:',opts:['Avoid taking a side','Rest outside','Be neutral in sport','Climb something'],c:0,explain:'"Sit on the fence" means to avoid committing to a particular opinion or choice.'},
+  {type:'mc',q:'Which sentence is correct?',opts:['Neither Ana nor her sisters were late.','Neither Ana nor her sisters was late.','Neither Ana nor her sisters are late.','Neither Ana nor her sisters be late.'],c:0,explain:'"neither...nor" agrees with nearest noun: "sisters" (plural) so use "were".'},
+  {type:'fb',q:'"Actions speak louder than ___." Complete the idiom.',opts:['words','thoughts','deeds','sounds'],c:0,explain:'"Actions speak louder than words" means doing is more important than saying.'},
+  {type:'mc',q:'"Go back to the drawing board" means:',opts:['Start over from scratch','Do art class','Return home','Find a map'],c:0,explain:'When a plan has failed and you need to start planning it again from the beginning.'},
+  {type:'mc',q:'"The ___ of the students were present." (correct verb placement)',opts:['majority','majorities','most','amount'],c:0,explain:'"The majority" takes a singular verb: "The majority of students WAS/WERE present" (both accepted).'},
+]
+},
+9:{
+math:[
+  {type:'mc',q:'Solve: x² - 5x + 6 = 0',opts:['x=2 or x=3','x=1 or x=6','x=-2 or x=-3','x=2 or x=-3'],c:0,explain:'Factor: (x-2)(x-3)=0 → x=2 or x=3'},
+  {type:'mc',q:'sin(30°) = ?',opts:['0.5','0.866','1','0.707'],c:0,explain:'sin(30°)=1/2=0.5. SOH=O/H.'},
+  {type:'mc',q:'Discriminant formula?',opts:['b²-4ac','b²+4ac','-b±√(b²-4ac)','(b²-4ac)/2a'],c:0,explain:'Discriminant Δ=b²-4ac. Δ>0: 2 roots; Δ=0: 1 root; Δ<0: no real roots.'},
+  {type:'mc',q:'Factor: x² - 9',opts:['(x+3)(x-3)','(x+9)(x-1)','(x-3)²','(x+3)²'],c:0,explain:'Difference of squares: a²-b²=(a+b)(a-b). x²-9=(x+3)(x-3)'},
+  {type:'mc',q:'cos(60°) = ?',opts:['0.5','0.866','1','0'],c:0,explain:'cos(60°)=1/2=0.5. CAH=A/H.'},
+  {type:'fb',q:'The ___ formula solves ax²+bx+c=0.',opts:['quadratic','linear','cubic','trigonometric'],c:0,explain:'Quadratic formula: x=(-b±√(b²-4ac))/2a'},
+  {type:'mc',q:'tan(45°) = ?',opts:['1','0','√2','1/2'],c:0,explain:'tan(45°)=sin/cos=(√2/2)/(√2/2)=1'},
+  {type:'mc',q:'Slope perpendicular to y=2x+1?',opts:['-1/2','2','-2','1/2'],c:0,explain:'Perpendicular: m₁×m₂=-1 → 2×m=-1 → m=-1/2'},
+  // Algebra word problems
+  {type:'mc',q:'A father is 4 times as old as his son. In 6 years he\'ll be 3 times as old. Son\'s current age?',opts:['12','8','10','6'],c:0,explain:'F=4S. F+6=3(S+6) → 4S+6=3S+18 → S=12'},
+  {type:'mc',q:'The sum of three consecutive integers is 57. What is the largest?',opts:['20','19','21','18'],c:0,explain:'n+(n+1)+(n+2)=57 → 3n+3=57 → n=18. Largest=20.'},
+  {type:'mc',q:'A tank fills in 4 h (pipe A) and 6 h (pipe B). Together in how many hours?',opts:['2.4 h','5 h','3 h','10 h'],c:0,explain:'Rate A=1/4, B=1/6. Together=(1/4+1/6)=5/12/h. Time=12/5=2.4 h.'},
+  {type:'mc',q:'Speed of A is 60 km/h, B is 90 km/h, same direction, A starts 1 h earlier. How long for B to catch A?',opts:['2 h','1 h','3 h','1.5 h'],c:0,explain:'A has 60 km head start. Relative speed=30 km/h. Time=60÷30=2 h.'},
+  // Sets
+  {type:'mc',q:'If n(A)=12, n(B)=15, n(A∩B)=5, find n(A∪B).',opts:['22','32','27','17'],c:0,explain:'n(A∪B)=n(A)+n(B)-n(A∩B)=12+15-5=22'},
+  {type:'mc',q:'The number of subsets of {a, b, c} is:',opts:['8','6','4','3'],c:0,explain:'A set with n elements has 2ⁿ subsets. 2³=8.'},
+  {type:'tf',q:'The empty set {} is a subset of every set.',opts:['✅ True','❌ False'],c:0,explain:'∅ is a subset of every set by definition.'},
+  // Probability
+  {type:'mc',q:'Two dice rolled. P(sum=7)?',opts:['1/6','1/12','5/36','7/36'],c:0,explain:'Pairs summing to 7: (1,6)(2,5)(3,4)(4,3)(5,2)(6,1) = 6 out of 36 = 1/6'},
+  {type:'mc',q:'P(A)=0.4, P(B)=0.5, A and B are independent. P(A and B)?',opts:['0.2','0.9','0.1','0.45'],c:0,explain:'For independent events: P(A∩B)=P(A)×P(B)=0.4×0.5=0.2'},
+  {type:'mc',q:'P(A)=0.3, P(B)=0.5, mutually exclusive. P(A or B)?',opts:['0.8','0.15','0.2','0.35'],c:0,explain:'Mutually exclusive: P(A∪B)=P(A)+P(B)=0.3+0.5=0.8'},
+  {type:'mc',q:'Solve simultaneous: x+y=7 and x-y=3',opts:['x=5,y=2','x=4,y=3','x=3,y=4','x=2,y=5'],c:0,explain:'Add: 2x=10→x=5. Then y=2.'},
+  {type:'mc',q:'Expand (2x+3)²',opts:['4x²+12x+9','4x²+6x+9','4x²+9','2x²+12x+9'],c:0,explain:'(a+b)²=a²+2ab+b². (2x+3)²=4x²+12x+9'},
+],
+science:[
+  {type:'mc',q:'KE formula?',opts:['½mv²','mv','mgh','Fd'],c:0,explain:'KE=½×mass×velocity². Units: joules (J).'},
+  {type:'mc',q:'GPE formula?',opts:['mgh','½mv²','Fd','mv'],c:0,explain:'GPE=mass×g×height. g≈10 m/s².'},
+  {type:'mc',q:'Bond between metal and non-metal?',opts:['Ionic','Covalent','Metallic','Hydrogen'],c:0,explain:'Ionic bond: electron transfer from metal to non-metal.'},
+  {type:'tf',q:'Covalent bonds involve sharing of electrons.',opts:['✅ True','❌ False'],c:0,explain:'Covalent: non-metals share electron pairs.'},
+  {type:'mc',q:'Group 1 elements are called:',opts:['Alkali metals','Noble gases','Halogens','Transition metals'],c:0,explain:'Group 1: Li,Na,K,Rb,Cs,Fr — alkali metals.'},
+  // Living things - advanced
+  {type:'mc',q:'Meiosis produces:',opts:['4 genetically different cells','2 identical cells','1 cell with double DNA','2 cells with double DNA'],c:0,explain:'Meiosis: for sex cells (gametes). Produces 4 haploid cells, all genetically different.'},
+  {type:'mc',q:'A dominant allele:',opts:['Expresses with just one copy','Needs two copies','Has no effect','Is always recessive'],c:0,explain:'Dominant alleles override recessive ones — only one copy needed for expression.'},
+  {type:'mc',q:'The immune system\'s first line of defence is:',opts:['Skin and mucous membranes','White blood cells','Antibodies','Bone marrow'],c:0,explain:'Skin is the physical barrier. WBCs and antibodies are the second and third lines.'},
+  {type:'tf',q:'Enzymes are biological catalysts made of protein.',opts:['✅ True','❌ False'],c:0,explain:'Enzymes speed up reactions without being used up; they are proteins.'},
+  // Forces & motion
+  {type:'mc',q:'A car accelerates from 10 m/s to 30 m/s in 5 s. Acceleration?',opts:['4 m/s²','6 m/s²','2 m/s²','8 m/s²'],c:0,explain:'a=Δv÷t=(30-10)÷5=4 m/s²'},
+  {type:'mc',q:'Conservation of momentum: total momentum before = ?',opts:['Total momentum after','Total KE after','Total force after','Total mass after'],c:0,explain:'In a closed system, total momentum is conserved in all collisions.'},
+  // Density & Volume
+  {type:'mc',q:'Volume of sphere r=3 cm? (π≈3.14)',opts:['113 cm³','36 cm³','75.4 cm³','150 cm³'],c:0,explain:'V=4/3πr³=4/3×3.14×27=113 cm³'},
+  {type:'mc',q:'A substance has mass 270 g and density 2.7 g/cm³. Volume?',opts:['100 cm³','729 cm³','7.3 cm³','0.01 cm³'],c:0,explain:'V=m÷D=270÷2.7=100 cm³'},
+],
+english:[
+  {type:'mc',q:'"The data ___ collected carefully." Choose the correct verb.',opts:['were','was','is','are'],c:0,explain:'"Data" is the plural of "datum" → "were" is technically correct (though "was" is accepted in informal use).'},
+  {type:'mc',q:'"A number of students ___ absent." Choose correct verb.',opts:['were','was','is','has'],c:0,explain:'"A number of" = plural verb. But "The number of" = singular verb.'},
+  {type:'tf',q:'"Everyone have submitted their assignments." — This is grammatically correct.',opts:['✅ True','❌ False'],c:1,explain:'"Everyone" is singular → should be "Everyone HAS submitted".'},
+  {type:'mc',q:'"Add fuel to the fire" means:',opts:['Make a bad situation worse','Cook something','Be energetic','Calm things down'],c:0,explain:'Adding fuel to the fire makes a bad situation escalate even more.'},
+  {type:'mc',q:'"Burning the midnight oil" means:',opts:['Working/studying late at night','Having a candle','Being lazy','Sleeping a lot'],c:0,explain:'Working late into the night, especially studying.'},
+  {type:'mc',q:'"Miss the boat" means:',opts:['Lose an opportunity','Travel by sea','Be late for school','Forget directions'],c:0,explain:'"Miss the boat" means to miss an important chance or opportunity.'},
+  {type:'mc',q:'"Get out of hand" means:',opts:['Lose control','Release someone','Help a person','Fix something broken'],c:0,explain:'"Out of hand" means a situation has become uncontrollable.'},
+  {type:'mc',q:'Which sentence uses correct subject-verb agreement?',opts:['The list of items is on the table.','The list of items are on the table.','The list of items were on the table.','The list of items be on the table.'],c:0,explain:'"List" is the subject (not "items") — it is singular, so use "is".'},
+  {type:'mc',q:'"Barking up the wrong tree" means:',opts:['Pursuing wrong solution','Playing with dogs','Making noise','Being noisy outside'],c:0,explain:'Looking for something in the wrong place or blaming the wrong person.'},
+  {type:'fb',q:'"Every cloud has a silver ___." Complete the idiom.',opts:['lining','edge','border','light'],c:0,explain:'"Every cloud has a silver lining" means every difficulty has a positive aspect.'},
+]
+}
+};
+
+// ═══════════════════════════════════════════
+//  QUIZ ENGINE
+// ═══════════════════════════════════════════
+function getQs(grade,subj,diff){
+  const g=QB[grade];let pool=[];
+  if(subj==='math'||subj==='mix') pool.push(...g.math);
+  if(subj==='sci'||subj==='mix')  pool.push(...g.science);
+  if(subj==='eng'||subj==='mix')  pool.push(...g.english);
+  if(diff==='easy') pool=pool.filter(q=>q.type!=='fb');
+  return shuffle(pool);
+}
+function startQuiz(){
+  const n=+document.getElementById('numQ').value;
+  const d=document.getElementById('diff').value;
+  const pool=getQs(activeGrade,activeQSubj,d).slice(0,n);
+  if(!pool.length){toast('⚠️ No questions for that selection!');return;}
+  quizQs=pool;quizAnswered=new Array(pool.length).fill(false);
+  quizUserAnswers=new Array(pool.length).fill(null);quizScore=0;
+  renderQuiz();
+}
+function renderQuiz(){
+  const area=document.getElementById('quizArea');
+  area.innerHTML='';area.className='quiz-area on';
+  area.innerHTML=`<div class="quiz-bar"><span class="q-counter" id="qCtr">0 of ${quizQs.length} answered</span><span class="q-score-badge" id="qSc">⭐ 0 / ${quizQs.length}</span></div>`;
+  quizQs.forEach((q,qi)=>{
+    const tl={mc:'Multiple Choice',tf:'True/False',fb:'Fill Blank'}[q.type];
+    const tc={mc:'type-mc',tf:'type-tf',fb:'type-fb'}[q.type];
+    const card=document.createElement('div');card.className='q-card';card.id='qc-'+qi;
+    let optsHtml='';
+    if(q.type==='fb'){
+      optsHtml=`<div class="q-opts" id="qo-${qi}">
+        <div class="fb-input-wrap">
+          <input class="fb-inp" id="fbi-${qi}" type="text" placeholder="Type your answer…" autocomplete="off" onkeydown="if(event.key==='Enter')submitFB(${qi})"/>
+          <button class="fb-submit" id="fbs-${qi}" onclick="submitFB(${qi})">Submit ✓</button>
+        </div>
+        <div class="fb-hint">💡 Type the missing word, then press Enter or Submit</div>
+      </div>`;
+    } else {
+      optsHtml=`<div class="q-opts" id="qo-${qi}">${q.opts.map((o,oi)=>`
+        <button class="q-opt" onclick="ansQ(${qi},${oi})">
+          <span class="opt-lbl">${['A','B','C','D'][oi]||oi}</span>${esc(o)}
+        </button>`).join('')}</div>`;
+    }
+    card.innerHTML=`<div class="q-num-label"><span>Q${qi+1}</span><span class="q-type-badge ${tc}">${tl}</span></div>
+      <div class="q-text">${esc(q.q)}</div>${optsHtml}
+      <div class="q-explain" id="qe-${qi}">${esc(q.explain||'')}</div>`;
+    area.appendChild(card);
+  });
+  const rph=document.createElement('div');rph.id='qRes';rph.style.display='none';
+  area.appendChild(rph);
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function ansQ(qi,oi){
+  if(quizAnswered[qi])return;
+  quizAnswered[qi]=true;quizUserAnswers[qi]={type:'choice',chosen:oi};
+  const q=quizQs[qi];
+  document.querySelectorAll('#qo-'+qi+' .q-opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.c)b.classList.add('correct');
+    else if(i===oi&&oi!==q.c)b.classList.add('wrong');
+  });
+  if(oi===q.c)quizScore++;
+  document.getElementById('qe-'+qi).className='q-explain on';
+  updateQBar();if(quizAnswered.every(Boolean))showQResults();
+}
+function submitFB(qi){
+  if(quizAnswered[qi])return;
+  const q=quizQs[qi];
+  const inp=document.getElementById('fbi-'+qi);
+  const btn=document.getElementById('fbs-'+qi);
+  const val=(inp.value||'').trim();
+  if(!val){inp.focus();toast('✏️ Type your answer first!');return;}
+  quizAnswered[qi]=true;inp.disabled=true;btn.disabled=true;
+  quizUserAnswers[qi]={type:'text',value:val};
+  const ca=q.opts[q.c];
+  const norm=s=>s.toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();
+  const ok=norm(val)===norm(ca)||norm(ca).includes(norm(val))||norm(val).includes(norm(ca));
+  if(ok){quizScore++;inp.classList.add('correct');document.getElementById('qe-'+qi).innerHTML='✅ Correct! '+esc(q.explain||'');}
+  else{inp.classList.add('wrong');document.getElementById('qe-'+qi).innerHTML=`❌ Answer: <strong style="color:var(--g6)">${esc(ca)}</strong><br/>${esc(q.explain||'')}`;}
+  document.getElementById('qe-'+qi).className='q-explain on';
+  updateQBar();if(quizAnswered.every(Boolean))showQResults();
+}
+function updateQBar(){
+  const ans=quizAnswered.filter(Boolean).length;
+  document.getElementById('qCtr').textContent=`${ans} of ${quizQs.length} answered`;
+  document.getElementById('qSc').textContent=`⭐ ${quizScore} / ${quizQs.length}`;
+}
+function showQResults(){
+  const pct=Math.round(quizScore/quizQs.length*100);
+  let em='😅',msg='Keep at it — you\'re getting better! 💪';
+  if(pct>=90){em='🌟';msg='Outstanding!! You totally crushed it! 🏆';}
+  else if(pct>=75){em='🎉';msg='Great work! You\'re on a roll 🔥';}
+  else if(pct>=60){em='👍';msg='Good effort! Review missed ones and try again.';}
+  else if(pct>=40){em='📖';msg='Keep studying — every practice counts!';}
+  const gc={6:'var(--g6)',7:'var(--g7)',8:'var(--g8)',9:'var(--g9)'}[activeGrade]||'var(--g7)';
+  let rvHtml='<div class="review-wrap"><div class="review-title">📋 Full Review</div>';
+  quizQs.forEach((q,qi)=>{
+    const ua=quizUserAnswers[qi];const ca=q.opts[q.c];let ok=false,ud='—';
+    if(ua){
+      if(ua.type==='choice'){ok=ua.chosen===q.c;ud=q.opts[ua.chosen]||'—';}
+      else{const n=s=>s.toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();
+        ok=n(ua.value)===n(ca)||n(ca).includes(n(ua.value))||n(ua.value).includes(n(ca));ud=ua.value;}
+    }
+    const sc=ok?'r-correct':'r-wrong';
+    rvHtml+=`<div class="review-item ${sc}">
+      <div class="ri-top"><span class="ri-qnum">Q${qi+1}</span><span class="ri-badge ${sc}">${ok?'✅ Correct':'❌ Wrong'}</span></div>
+      <div class="ri-q">${esc(q.q)}</div>
+      <div class="ri-answers">
+        <div class="ri-your">Your answer: <span class="${ok?'':'was-wrong'}">${esc(ud)}</span></div>
+        ${!ok?`<div class="ri-correct-ans">✓ Correct: ${esc(ca)}</div>`:''}
+      </div>
+      <div class="ri-explain">${esc(q.explain||'')}</div>
+    </div>`;
+  });
+  rvHtml+='</div>';
+  const res=document.getElementById('qRes');res.style.display='';
+  res.innerHTML=`<div class="results-wrap">
+    <div class="res-emoji">${em}</div>
+    <div class="res-score" style="color:${gc}">${quizScore} / ${quizQs.length}</div>
+    <div class="res-pct">${pct}% correct</div>
+    <div class="res-msg">${msg}</div>
+    <div class="res-btns">
+      <button class="btn-p" style="background:linear-gradient(135deg,${gc},${gc}99);color:#04060f;" onclick="startQuiz()">🔄 New Quiz</button>
+      <button class="btn-s" style="font-size:.82rem;padding:9px 16px;" onclick="document.getElementById('quizArea').className='quiz-area';document.getElementById('quizArea').innerHTML='';window.scrollTo(0,0)">⬆ Back to Settings</button>
+    </div>
+  </div>${rvHtml}`;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════════════
+//  SPEED MATH
+// ═══════════════════════════════════════════
+let smActive=false,smRight=0,smWrong=0,smTime=60,smCurrent=null,smTimer=null;
+const SM_OPS={
+  6:[()=>{const a=rn(1,20),b=rn(1,20);return{q:`${a} + ${b}`,a:a+b};},
+     ()=>{const a=rn(5,30),b=rn(1,a);return{q:`${a} - ${b}`,a:a-b};},
+     ()=>{const a=rn(1,10),b=rn(1,10);return{q:`${a} × ${b}`,a:a*b};},
+     ()=>{const b=rn(1,10),a=b*rn(1,10);return{q:`${a} ÷ ${b}`,a:a/b};}],
+  7:[()=>{const a=rn(-15,15),b=rn(-15,15);return{q:`${a} + (${b})`,a:a+b};},
+     ()=>{const a=rn(-10,10),b=rn(-10,10);return{q:`${a} × ${b}`,a:a*b};},
+     ()=>{const x=rn(1,15);return{q:`3x+2=${3*x+2}, x=?`,a:x};},
+     ()=>{const a=rn(1,12);return{q:`${a}²=?`,a:a*a};}],
+  8:[()=>{const a=rn(1,10);return{q:`${a}²=?`,a:a*a};},
+     ()=>{const b=rn(1,9);return{q:`√${b*b}=?`,a:b};},
+     ()=>{const x=rn(1,10);return{q:`2x-1=${2*x-1}, x=?`,a:x};},
+     ()=>{const a=rn(2,20),b=rn(2,20);return{q:`${a}×${b}=?`,a:a*b};}],
+  9:[()=>{const a=rn(1,8),b=rn(1,8);return{q:`${a}²+${b}²=?`,a:a*a+b*b};},
+     ()=>{const a=rn(1,5);return{q:`${a}³=?`,a:a*a*a};},
+     ()=>{const x=rn(1,10);return{q:`5x-3=${5*x-3}, x=?`,a:x};},
+     ()=>{const a=rn(2,15),b=rn(2,15);return{q:`${a}×${b}=?`,a:a*b};}]
+};
+function smStart(){
+  smActive=true;smRight=0;smWrong=0;smTime=60;
+  document.getElementById('sm-start').style.display='none';
+  document.getElementById('sm-result').style.display='none';
+  document.getElementById('sm-play').style.display='block';
+  ['smRight','smWrong'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('smTime').textContent='60';
+  document.getElementById('smInp').value='';
+  document.getElementById('smFlash').textContent='';
+  clearInterval(smTimer);
+  smTimer=setInterval(()=>{
+    smTime--;document.getElementById('smTime').textContent=smTime;
+    const tb=document.getElementById('smTBar');
+    tb.style.width=(smTime/60*100)+'%';
+    tb.style.background=smTime>20?'var(--math)':smTime>10?'var(--g9)':'var(--red)';
+    if(smTime<=0)smEnd();
+  },1000);
+  smNext();document.getElementById('smInp').focus();
+}
+function smNext(){
+  const ops=SM_OPS[activeGrade]||SM_OPS[7];
+  smCurrent=ops[Math.floor(Math.random()*ops.length)]();
+  document.getElementById('smQ').textContent=smCurrent.q+' = ?';
+  document.getElementById('smInp').value='';
+}
+function smCheck(){
+  if(!smActive||!smCurrent)return;
+  const v=+document.getElementById('smInp').value;
+  const fl=document.getElementById('smFlash');
+  if(v===smCurrent.a){smRight++;fl.textContent='✅ +1';fl.style.color='var(--g6)';document.getElementById('smRight').textContent=smRight;}
+  else{smWrong++;fl.textContent=`❌ ${smCurrent.a}`;fl.style.color='var(--red)';document.getElementById('smWrong').textContent=smWrong;}
+  setTimeout(()=>fl.textContent='',550);smNext();
+}
+function smEnd(){
+  smActive=false;clearInterval(smTimer);
+  document.getElementById('sm-play').style.display='none';document.getElementById('sm-result').style.display='block';
+  const total=smRight+smWrong,acc=total?Math.round(smRight/total*100):0;
+  document.getElementById('smFScore').textContent=smRight;
+  let msg=`Accuracy ${acc}% — `;
+  if(acc>=90)msg+='🌟 Maths machine!';else if(acc>=70)msg+='🎉 Great!';else if(acc>=50)msg+='👍 Keep practising!';else msg+='📚 Review and retry!';
+  document.getElementById('smFMsg').textContent=msg;
+}
+
+// ═══════════════════════════════════════════
+//  SCIENCE STREAK
+// ═══════════════════════════════════════════
+let ssStreak=0,ssBest=0,ssCurrent=null;
+function ssStart(){
+  ssStreak=0;ssBest=0;
+  document.getElementById('ss-start').style.display='none';
+  document.getElementById('ss-result').style.display='none';
+  document.getElementById('ss-play').style.display='block';
+  ['ssStreak','ssBest'].forEach(id=>document.getElementById(id).textContent='0');
+  ssNext();
+}
+function ssNext(){
+  ssCurrent=shuffle(QB[activeGrade].science)[0];
+  document.getElementById('ssQ').textContent=ssCurrent.q;
+  document.getElementById('ssFact').className='streak-fact';
+  document.getElementById('ssNext').style.display='none';
+  const opts=document.getElementById('ssOpts');opts.innerHTML='';
+  (ssCurrent.type==='tf'?ssCurrent.opts:shuffle(ssCurrent.opts)).forEach(o=>{
+    const b=document.createElement('button');b.className='str-opt';b.textContent=o;
+    b.onclick=()=>ssAnswer(o);opts.appendChild(b);
+  });
+}
+function ssAnswer(chosen){
+  const ca=ssCurrent.opts[ssCurrent.c];
+  const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();
+  const ok=norm(chosen)===norm(ca);
+  document.querySelectorAll('#ssOpts .str-opt').forEach(b=>{
+    b.disabled=true;
+    if(norm(b.textContent)===norm(ca))b.classList.add('correct');
+    else if(norm(b.textContent)===norm(chosen)&&!ok)b.classList.add('wrong');
+  });
+  document.getElementById('ssFact').textContent='💡 '+ssCurrent.explain;
+  document.getElementById('ssFact').className='streak-fact on';
+  if(ok){ssStreak++;if(ssStreak>ssBest)ssBest=ssStreak;
+    document.getElementById('ssStreak').textContent=ssStreak;
+    document.getElementById('ssBest').textContent=ssBest;
+    document.getElementById('ssNext').style.display='block';
+  } else setTimeout(()=>ssEnd(),1400);
+}
+function ssEnd(){
+  document.getElementById('ss-play').style.display='none';document.getElementById('ss-result').style.display='block';
+  document.getElementById('ssFStreak').textContent=ssStreak;
+  let msg='Keep going!';
+  if(ssStreak>=15)msg='🌟 Science master!';else if(ssStreak>=10)msg='🎉 Impressive!';else if(ssStreak>=5)msg='👍 Aim for 10!';else msg='📚 Study more — try for 5!';
+  document.getElementById('ssFMsg').textContent=msg;
+}
+
+// ═══════════════════════════════════════════
+//  MATH BLITZ
+// ═══════════════════════════════════════════
+let mbIdx=0,mbScore=0,mbOrder=[],mbAnswers=[];
+function mbStart(){
+  mbOrder=shuffle(QB[activeGrade].math).slice(0,15);
+  mbIdx=0;mbScore=0;mbAnswers=[];
+  document.getElementById('mb-start').style.display='none';
+  document.getElementById('mb-result').style.display='none';
+  document.getElementById('mb-play').style.display='block';
+  mbRender();
+}
+function mbRender(){
+  const q=mbOrder[mbIdx];
+  document.getElementById('mbIdx').textContent=mbIdx+1;
+  document.getElementById('mbScore').textContent=mbScore;
+  document.getElementById('mbQ').textContent=q.q;
+  document.getElementById('mbFact').className='streak-fact';
+  document.getElementById('mbNext').style.display='none';
+  const opts=document.getElementById('mbOpts');opts.innerHTML='';
+  (q.type==='tf'?q.opts:shuffle(q.opts)).forEach(o=>{
+    const b=document.createElement('button');b.className='str-opt';b.textContent=o;
+    b.onclick=()=>mbAnswer(o,q);opts.appendChild(b);
+  });
+}
+function mbAnswer(chosen,q){
+  const ca=q.opts[q.c];const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9\s]/g,'').trim();const ok=norm(chosen)===norm(ca);
+  document.querySelectorAll('#mbOpts .str-opt').forEach(b=>{
+    b.disabled=true;
+    if(norm(b.textContent)===norm(ca))b.classList.add('correct');
+    else if(norm(b.textContent)===norm(chosen)&&!ok)b.classList.add('wrong');
+  });
+  mbAnswers.push({q:q.q,chosen,correct:ca,ok,explain:q.explain});
+  if(ok)mbScore++;
+  document.getElementById('mbFact').textContent='💡 '+q.explain;document.getElementById('mbFact').className='streak-fact on';
+  document.getElementById('mbNext').style.display='block';document.getElementById('mbScore').textContent=mbScore;
+}
+function mbNext(){
+  mbIdx++;
+  if(mbIdx>=mbOrder.length){
+    document.getElementById('mb-play').style.display='none';document.getElementById('mb-result').style.display='block';
+    document.getElementById('mbFScore').textContent=mbScore;
+    const pct=Math.round(mbScore/mbOrder.length*100);
+    let msg=pct>=90?'🌟 Math superstar!':pct>=70?'🎉 Great!':pct>=50?'👍 Good effort!':'📚 Keep studying!';
+    document.getElementById('mbFMsg').textContent=msg;
+    const missed=mbAnswers.filter(a=>!a.ok);
+    const rv=document.getElementById('mb-review');
+    if(!missed.length){rv.innerHTML='<div style="color:var(--g6);font-weight:800;text-align:center;padding:7px">🎯 Perfect score!</div>';return;}
+    let html=`<details><summary style="cursor:pointer;font-weight:800;font-size:.78rem;color:var(--math);padding:5px 0">📋 ${missed.length} missed</summary><div style="margin-top:7px">`;
+    missed.forEach(a=>{
+      html+=`<div class="review-item r-wrong" style="margin-bottom:6px">
+        <div class="ri-q">${esc(a.q)}</div>
+        <div class="ri-answers"><div class="ri-your">Yours: <span class="was-wrong">${esc(a.chosen)}</span></div>
+          <div class="ri-correct-ans">✓ ${esc(a.correct)}</div></div>
+        <div class="ri-explain">💡 ${esc(a.explain)}</div>
+      </div>`;
+    });
+    html+='</div></details>';rv.innerHTML=html;
+  } else mbRender();
+}
+
+// ═══════════════════════════════════════════
+//  TERM MATCH
+// ═══════════════════════════════════════════
+const TM_PAIRS={
+  6:[{term:'Photosynthesis',def:'Plants making food using sunlight'},{term:'Ecosystem',def:'All living & non-living things in an area'},
+     {term:'Gravity',def:'Force pulling objects toward Earth'},{term:'Ratio',def:'Comparison of two quantities by division'},
+     {term:'Mean',def:'Sum of values divided by the count'},{term:'Prime number',def:'A number with exactly 2 factors'},
+     {term:'Set intersection',def:'Elements common to both sets'},{term:'Idiom',def:'Phrase with a figurative meaning'}],
+  7:[{term:'Atom',def:'Smallest particle of an element'},{term:'Density',def:'Mass divided by volume'},
+     {term:'Variable',def:'A letter representing an unknown'},{term:'Friction',def:'Force opposing motion between surfaces'},
+     {term:'Venn diagram',def:'Shows set relationships with circles'},{term:'Probability',def:'Likelihood of an event occurring'},
+     {term:'Vertebrate',def:'Animal with a backbone'},{term:'Subject-verb agreement',def:'Subject and verb must match in number'}],
+  8:[{term:'Mitosis',def:'Cell division for growth and repair'},{term:'Exothermic',def:'Reaction that releases heat energy'},
+     {term:'Gradient',def:'Steepness or slope of a line'},{term:'Ohm\'s Law',def:'V = Current × Resistance'},
+     {term:'Inclusion-exclusion',def:'n(A∪B)=n(A)+n(B)-n(A∩B)'},{term:'Terminal velocity',def:'Constant speed when drag = weight'},
+     {term:'Density',def:'Mass ÷ Volume in g/cm³'},{term:'Complement of A',def:'All elements NOT in set A'}],
+  9:[{term:'Ionic bond',def:'Bond by electron transfer (metal+non-metal)'},{term:'KE formula',def:'½mv²'},
+     {term:'Quadratic formula',def:'x=(-b±√(b²-4ac))/2a'},{term:'Meiosis',def:'Cell division producing 4 gamete cells'},
+     {term:'Discriminant',def:'b²-4ac determines number of roots'},{term:'GPE formula',def:'mgh'},
+     {term:'Allele dominant',def:'Expresses trait with just one copy'},{term:'Silver lining idiom',def:'Positive aspect in a bad situation'}]
+};
+let tmSelected=null,tmMatchedCount=0,tmPairs=[],tmStartTime=0;
+function tmStart(){
+  const pairs=shuffle(TM_PAIRS[activeGrade]).slice(0,6);
+  tmPairs=pairs;tmSelected=null;tmMatchedCount=0;tmStartTime=Date.now();
+  document.getElementById('tm-start').style.display='none';document.getElementById('tm-result').style.display='none';
+  document.getElementById('tm-play').style.display='block';
+  document.getElementById('tmLeft').textContent=pairs.length;document.getElementById('tmMatched').textContent='0';
+  const grid=document.getElementById('tmGrid');grid.innerHTML='';
+  const terms=pairs.map((p,i)=>({id:'t'+i,text:p.term,pairIdx:i,isdef:false}));
+  const defs=pairs.map((p,i)=>({id:'d'+i,text:p.def,pairIdx:i,isdef:true}));
+  shuffle([...terms,...defs]).forEach(c=>{
+    const el=document.createElement('div');el.className='match-card';
+    el.textContent=c.text;el.dataset.pair=c.pairIdx;el.dataset.isdef=c.isdef?'1':'0';
+    el.onclick=()=>tmClick(el,c);grid.appendChild(el);
+  });
+}
+function tmClick(el,card){
+  if(el.classList.contains('matched'))return;
+  if(!tmSelected){
+    document.querySelectorAll('.match-card.selected').forEach(e=>e.classList.remove('selected'));
+    el.classList.add('selected');tmSelected={el,card};return;
+  }
+  const prev=tmSelected;
+  if(prev.el===el){el.classList.remove('selected');tmSelected=null;return;}
+  if(prev.card.pairIdx===card.pairIdx&&prev.card.isdef!==card.isdef){
+    el.classList.add('matched');prev.el.classList.remove('selected');prev.el.classList.add('matched');
+    tmMatchedCount++;tmSelected=null;
+    document.getElementById('tmLeft').textContent=tmPairs.length-tmMatchedCount;
+    document.getElementById('tmMatched').textContent=tmMatchedCount;
+    if(tmMatchedCount===tmPairs.length){
+      setTimeout(()=>{
+        document.getElementById('tm-play').style.display='none';document.getElementById('tm-result').style.display='block';
+        const s=Math.round((Date.now()-tmStartTime)/1000);
+        document.getElementById('tmFMsg').textContent=`Done in ${s}s! 🎯 Can you beat that?`;
+      },350);
+    }
+  } else {
+    el.classList.add('wrong-flash');prev.el.classList.add('wrong-flash');
+    tmSelected=null;
+    setTimeout(()=>{el.classList.remove('wrong-flash','selected');prev.el.classList.remove('wrong-flash','selected');},380);
+  }
+}
+
+// ═══════════════════════════════════════════
+//  NOTES & FORMULAS
+// ═══════════════════════════════════════════
+const NOTES={
+  6:{
+    math:[
+      {name:'Area of Rectangle',formula:'A = l × w',desc:'Multiply length by width. Units: cm², m².'},
+      {name:'Area of Triangle',formula:'A = ½ × b × h',desc:'Half the base times the height.'},
+      {name:'Perimeter',formula:'P = sum of all sides',desc:'Add all side lengths around the shape.'},
+      {name:'Volume of Cuboid',formula:'V = l × w × h',desc:'Multiply length, width, and height.'},
+      {name:'Mean (Average)',formula:'Mean = Σx ÷ n',desc:'Sum all values, divide by the count.',ex:'E.g. mean of 3,5,7 = 15÷3 = 5'},
+      {name:'Percentage',formula:'% = (part ÷ whole) × 100',desc:'Divide part by total, multiply by 100.',ex:'E.g. 18/24 × 100 = 75%'},
+      {name:'Ratio',formula:'a : b = a/b',desc:'Simplify by dividing both by HCF.',ex:'12:18 = 2:3 (÷ 6)'},
+      {name:'Sets — Intersection',formula:'A ∩ B = common elements',desc:'Elements that belong to BOTH sets.',ex:'A={1,2,3}, B={2,3,4} → A∩B={2,3}'},
+      {name:'Sets — Union',formula:'A ∪ B = all elements',desc:'All elements in either set (no repeats).',ex:'A={1,2}, B={2,3} → A∪B={1,2,3}'},
+      {name:'Probability',formula:'P(E) = favourable ÷ total',desc:'Must be between 0 (impossible) and 1 (certain).',ex:'P(heads) = 1/2'},
+    ],
+    sci:[
+      {name:'Photosynthesis',formula:'CO₂ + H₂O + light → glucose + O₂',desc:'Plants convert sunlight into food. Occurs in chloroplasts.'},
+      {name:'Speed',formula:'Speed = Distance ÷ Time',desc:'Units: m/s or km/h.',ex:'100 m in 10 s = 10 m/s'},
+      {name:'7 Characteristics of Life',formula:'MRS GREN',desc:'Movement, Respiration, Sensitivity, Growth, Reproduction, Excretion, Nutrition.'},
+      {name:'Force',formula:'Unit: Newton (N)',desc:'Forces can be balanced (no change) or unbalanced (causes change in motion).'},
+      {name:'Weight vs Mass',formula:'Weight (N) = mass (kg) × g',desc:'Mass doesn\'t change; weight depends on gravity (g=10 m/s² on Earth).'},
+      {name:'Density',formula:'D = mass ÷ volume',desc:'If D < water (1 g/cm³) → floats. If D > 1 → sinks.',ex:'D=50÷25=2 g/cm³'},
+    ],
+    eng:[
+      {name:'Subject-Verb Agreement',formula:'Singular subject → singular verb',desc:'The verb must match the subject in number.',ex:'"She runs." (not "She run.")'},
+      {name:'Collective Nouns',formula:'Team/Class/Family = singular',desc:'When a group acts as one unit, use a singular verb.',ex:'"The team is winning."'},
+      {name:'Everyone/Each/Either',formula:'Always singular',desc:'These indefinite pronouns always take a singular verb.',ex:'"Everyone has a ticket."'},
+      {name:'Common Idioms',formula:'Phrase ≠ literal meaning',desc:'Learn the figurative meaning — NOT the word-by-word meaning.',ex:'"Break a leg" = Good luck!'},
+    ]
+  },
+  7:{
+    math:[
+      {name:'Circumference',formula:'C = 2πr  or  C = πd',desc:'π ≈ 3.14159. r=radius, d=diameter.',ex:'d=10 → C=31.4'},
+      {name:'Area of Circle',formula:'A = πr²',desc:'Square the radius then multiply by π.',ex:'r=7 → A=153.86'},
+      {name:'Solving Equations',formula:'Isolate x using inverse operations',desc:'Whatever you do to one side, do to the other.',ex:'3x+5=20 → 3x=15 → x=5'},
+      {name:'Venn Diagram — Sets',formula:'Circles show A, B, and A∩B',desc:'Overlap region = intersection. Full diagram = union.',ex:'Count each region separately.'},
+      {name:'Algebra Word Problems',formula:'Assign variable, form equation, solve',desc:'Step 1: Define variable. Step 2: Write equation. Step 3: Solve.',ex:'"x more than 5 = 14" → x+5=14 → x=9'},
+      {name:'Probability',formula:'P(E) = n(E) ÷ n(S)',desc:'n(E)=favourable outcomes, n(S)=total outcomes.',ex:'P(roll 3) = 1/6'},
+      {name:'Ratio & Proportion',formula:'a:b = ka:kb (multiply by same)',desc:'Direct proportion: as one increases, other increases too.',ex:'1:500 scale map'},
+    ],
+    sci:[
+      {name:'Density',formula:'D = m ÷ v  →  m = Dv  →  v = m/D',desc:'The triangle: cover what you need.',ex:'m=100g, v=50cm³ → D=2 g/cm³'},
+      {name:'Speed',formula:'v = d ÷ t  →  d = vt  →  t = d/v',desc:'Speed/distance/time triangle.',ex:'60 km/h for 3 h = 180 km'},
+      {name:'Force & Motion',formula:'Balanced: no acceleration. Unbalanced: acceleration.',desc:'Net force = total force in one direction minus opposing forces.',ex:'Pushed 20N, friction 8N → net=12N forward'},
+      {name:'Living Things Classification',formula:'Kingdom→Phylum→Class→Order→Family→Genus→Species',desc:'Remember: "King Philip Came Over For Good Soup"'},
+    ]
+  },
+  8:{
+    math:[
+      {name:'Pythagorean Theorem',formula:'a² + b² = c²  (c=hypotenuse)',desc:'Only for RIGHT-angled triangles.',ex:'3²+4²=9+16=25 → c=5'},
+      {name:'Gradient',formula:'m = (y₂-y₁) ÷ (x₂-x₁)',desc:'Rise over run. Positive: uphill. Negative: downhill.',ex:'(0,2)→(3,8): m=6/3=2'},
+      {name:'y = mx + c',formula:'m=gradient, c=y-intercept',desc:'Straight line equation.',ex:'y=3x+2: slope=3, crosses y-axis at (0,2)'},
+      {name:'Scientific Notation',formula:'a × 10ⁿ where 1 ≤ a < 10',desc:'Large: positive n. Small: negative n.',ex:'0.000045=4.5×10⁻⁵'},
+      {name:'Sets Inclusion-Exclusion',formula:'n(A∪B) = n(A)+n(B)-n(A∩B)',desc:'Subtract the overlap to avoid counting twice.',ex:'n(A)=18, n(B)=15, n(A∩B)=8 → n(A∪B)=25'},
+      {name:'Probability — Complement',formula:'P(A\') = 1 - P(A)',desc:'Probability of NOT A equals 1 minus P(A).',ex:'P(not rain)=1-0.3=0.7'},
+    ],
+    sci:[
+      {name:'Newton\'s 2nd Law',formula:'F = ma',desc:'F=Force(N), m=mass(kg), a=acceleration(m/s²).',ex:'5kg × 3m/s² = 15 N'},
+      {name:'Ohm\'s Law',formula:'V = IR  →  I = V/R  →  R = V/I',desc:'Voltage(V), Current(A), Resistance(Ω).',ex:'V=12V, R=4Ω → I=3A'},
+      {name:'Volume of Cylinder',formula:'V = πr²h',desc:'Area of circle × height.',ex:'r=3, h=5: V=3.14×9×5=141.3'},
+      {name:'Density',formula:'D = m/v',desc:'Higher density = heavier per unit volume.',ex:'m=200g, v=80cm³ → D=2.5 g/cm³'},
+      {name:'Living Things — Body Systems',formula:'Circulatory·Respiratory·Digestive·Nervous·Skeletal',desc:'Each system has a specific function. They work together.'},
+      {name:'Mitosis vs Meiosis',formula:'Mitosis=2 identical. Meiosis=4 different.',desc:'Mitosis: growth/repair. Meiosis: sex cells/gametes.'},
+    ],
+    eng:[
+      {name:'Subject-Verb with "or/nor"',formula:'Agree with the nearer subject',desc:'"Either Tom or his friends ARE going." (friends=plural)',ex:'"Neither she nor I AM sure."'},
+      {name:'News/Mathematics/Physics',formula:'Always singular verbs',desc:'These nouns look plural but are always singular.',ex:'"Maths IS difficult."'},
+      {name:'Collective Nouns',formula:'Can be singular or plural depending on use',desc:'Acting as unit → singular. As individuals → plural.',ex:'"The jury has reached a verdict."'},
+      {name:'Common Idioms (Grade 8)',formula:'',desc:'Learn meaning + context.',ex:'"Burn bridges"=ruin relationships. "Sit on fence"=avoid deciding.'},
+    ]
+  },
+  9:{
+    math:[
+      {name:'Quadratic Formula',formula:'x = (-b ± √(b²-4ac)) ÷ 2a',desc:'Solves any quadratic ax²+bx+c=0.',ex:'x²-5x+6=0: a=1,b=-5,c=6 → x=2 or 3'},
+      {name:'Discriminant',formula:'Δ = b² - 4ac',desc:'Δ>0: 2 real roots. Δ=0: 1 root. Δ<0: no real roots.',ex:'x²+4=0 → Δ=0-16<0 → no real roots'},
+      {name:'SOH-CAH-TOA',formula:'sin=O/H  cos=A/H  tan=O/A',desc:'For right-angled triangles. O=opposite, A=adjacent, H=hypotenuse.',ex:'sin(30°)=0.5, cos(60°)=0.5'},
+      {name:'Simultaneous Equations',formula:'Substitution or elimination method',desc:'Two equations, two unknowns.',ex:'x+y=7, x-y=3 → add: 2x=10 → x=5, y=2'},
+      {name:'Sets — Subsets & n(A∪B)',formula:'Subsets of n elements = 2ⁿ',desc:'Empty set is always a subset.',ex:'n(A)=12, n(B)=15, n(A∩B)=5 → n(A∪B)=22'},
+      {name:'Independent Probability',formula:'P(A and B) = P(A) × P(B)',desc:'For independent events (one doesn\'t affect the other).',ex:'P(H and 6) = ½ × 1/6 = 1/12'},
+    ],
+    sci:[
+      {name:'Kinetic & Potential Energy',formula:'KE=½mv²   GPE=mgh',desc:'Energy is conserved: KE+GPE=constant (ignoring friction).',ex:'KE=½×2×10²=100J'},
+      {name:'Newton\'s Laws',formula:'1st:Inertia  2nd:F=ma  3rd:Action=Reaction',desc:'Three laws governing all motion.',ex:'Rocket: pushes gas down → gas pushes rocket up (3rd law)'},
+      {name:'Ionic vs Covalent Bonds',formula:'Metal+Non-metal→Ionic  Non+Non→Covalent',desc:'Ionic: electron transfer. Covalent: electron sharing.',ex:'NaCl=ionic. H₂O=covalent'},
+      {name:'Density & Volume',formula:'D=m/v   v=4/3πr³ (sphere)',desc:'Always check units: g/cm³ or kg/m³.',ex:'v=270g÷2.7g/cm³=100cm³'},
+      {name:'Genetics',formula:'Dominant(D) shows with one copy. Recessive(r) needs two.',desc:'Genotype=alleles you have. Phenotype=trait you show.',ex:'Dd=dominant phenotype. dd=recessive.'},
+    ],
+    eng:[
+      {name:'Subject-Verb — Advanced',formula:'"A number of"=plural   "The number of"=singular',desc:'Common exam trap.',ex:'"A number of birds WERE singing."'},
+      {name:'Data/Criteria/Phenomena',formula:'Plural nouns — use plural verbs',desc:'These are Latin/Greek plurals.',ex:'"The data WERE collected carefully."'},
+      {name:'Idioms — Grade 9 List',formula:'',desc:'Key idioms for exam.',ex:'"Burning midnight oil"=studying late. "Miss the boat"=lose opportunity. "Add fuel to fire"=worsen situation.'},
+      {name:'Every cloud has a silver lining',formula:'Idiom: find positive in negative',desc:'Common exam question — know these Grade 9 idioms cold.',ex:'"Silver lining","Barking up wrong tree","Get out of hand"'},
+    ]
+  }
+};
+
+function renderNotes(){
+  ['6','7','8','9'].forEach(g=>{
+    const el=document.getElementById('note-n'+g);
+    if(el.innerHTML.trim())return;
+    const d=NOTES[g];
+    let html=`<div class="note-section-title" style="color:var(--math)">📐 Grade ${g} — Maths</div><div class="formula-grid">`;
+    d.math.forEach(f=>{
+      html+=`<div class="f-card math"><h4>${esc(f.name)}</h4><div class="formula">${esc(f.formula)}</div>
+        <div class="f-desc">${esc(f.desc)}</div>${f.ex?`<div class="f-example">e.g. ${esc(f.ex)}</div>`:''}</div>`;
+    });
+    html+=`</div><div class="note-section-title" style="color:var(--sci)">🔬 Grade ${g} — Science</div><div class="formula-grid">`;
+    d.sci.forEach(f=>{
+      html+=`<div class="f-card sci"><h4>${esc(f.name)}</h4><div class="formula">${esc(f.formula)}</div>
+        <div class="f-desc">${esc(f.desc)}</div>${f.ex?`<div class="f-example">e.g. ${esc(f.ex)}</div>`:''}</div>`;
+    });
+    html+=`</div><div class="note-section-title" style="color:var(--eng)">📖 Grade ${g} — English</div><div class="formula-grid">`;
+    d.eng.forEach(f=>{
+      html+=`<div class="f-card eng"><h4>${esc(f.name)}</h4>${f.formula?`<div class="formula">${esc(f.formula)}</div>`:''}
+        <div class="f-desc">${esc(f.desc)}</div>${f.ex?`<div class="f-example">e.g. ${esc(f.ex)}</div>`:''}</div>`;
+    });
+    html+='</div>';
+    el.innerHTML=html;
+  });
+}
+
+function showNotes(id,btn){
+  document.querySelectorAll('.note-panel').forEach(p=>p.className='note-panel');
+  document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('note-'+id).className='note-panel on';
+  btn.classList.add('on');
+}
+
+// ═══════════════════════════════════════════
+//  ASK GROQ AI
+// ═══════════════════════════════════════════
+function getGroqKey(){return localStorage.getItem('ss_groq_key')||'';}
+function saveGroqKey(){
+  const v=document.getElementById('groqKeyInp').value.trim();
+  if(!v){toast('⚠️ Please paste your Groq key');return;}
+  localStorage.setItem('ss_groq_key',v);updateKeyStatus();
+  toast('✅ Groq key saved! You can now chat.');
+}
+function clearGroqKey(){localStorage.removeItem('ss_groq_key');document.getElementById('groqKeyInp').value='';updateKeyStatus();toast('🗑️ Key cleared');}
+function updateKeyStatus(){
+  const has=!!getGroqKey();
+  document.getElementById('ksDot').className='ks-dot'+(has?' on':'');
+  document.getElementById('ksText').textContent=has?'✅ Key saved — AI chat ready!':'No key set yet — paste your key above';
+  document.getElementById('groqKeyInp').value=getGroqKey();
+}
+
+let chatHistory=[{role:'assistant',content:'👋 Hi! I\'m your AI study tutor powered by Groq. Set your API key above, then ask me anything about Maths, Science or English — I\'m here to help you learn! 🚀'}];
+
+function setPrompt(txt){
+  document.getElementById('chatInp').value=txt;
+  document.getElementById('chatInp').focus();
+}
+
+function renderChat(){
+  const box=document.getElementById('chatBox');
+  box.innerHTML=chatHistory.map(m=>`<div class="msg ${m.role==='user'?'user':'ai'}">${esc(m.content)}</div>`).join('');
+  box.scrollTop=box.scrollHeight;
+}
+
+async function sendChat(){
+  const inp=document.getElementById('chatInp');
+  const msg=(inp.value||'').trim();
+  if(!msg)return;
+  const key=getGroqKey();
+  if(!key){toast('⚠️ Set your Groq API key first!');return;}
+  inp.value='';
+  chatHistory.push({role:'user',content:msg});
+  chatHistory.push({role:'assistant',content:'⏳ Thinking…'});
+  renderChat();
+  const sendBtn=document.getElementById('chatSendBtn');sendBtn.disabled=true;
+
+  try{
+    const messages=[
+      {role:'system',content:`You are a friendly, encouraging study tutor for students in Grades 6–9. You help with Maths (algebra, ratio, proportion, probability, sets, word problems), Science (living things, forces, volume, density, chemistry basics), and English (subject-verb agreement, idioms, grammar). Keep answers clear, step-by-step, and age-appropriate. Use simple language, examples, and emojis to make learning fun. Always explain WHY, not just WHAT the answer is.`},
+      ...chatHistory.slice(0,-1).map(m=>({role:m.role,content:m.content}))
+    ];
+    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1200,temperature:0.5,messages})
+    });
+    if(!res.ok){
+      const err=await res.json().catch(()=>({}));
+      if(res.status===401)throw new Error('Invalid API key. Please check and re-enter your Groq key.');
+      if(res.status===429)throw new Error('Rate limit hit. Wait a moment and try again.');
+      throw new Error(err.error?.message||`Groq error (${res.status})`);
+    }
+    const data=await res.json();
+    const reply=data.choices[0].message.content.trim();
+    chatHistory[chatHistory.length-1]={role:'assistant',content:reply};
+  } catch(e){
+    chatHistory[chatHistory.length-1]={role:'assistant',content:'⚠️ Error: '+e.message};
+  }
+  renderChat();sendBtn.disabled=false;
+}
+
+// ═══════════════════════════════════════════
+//  HAMBURGER NAV
+// ═══════════════════════════════════════════
+function toggleNav(){
+  const btn=document.getElementById('hamBtn');
+  const links=document.getElementById('navLinks');
+  const isOpen=links.classList.contains('open');
+  btn.classList.toggle('open',!isOpen);
+  links.classList.toggle('open',!isOpen);
+  document.body.style.overflow=isOpen?'':'hidden';
+}
+function closeNav(){
+  document.getElementById('hamBtn').classList.remove('open');
+  document.getElementById('navLinks').classList.remove('open');
+  document.body.style.overflow='';
+}
+function navGo(page){
+  closeNav();
+  showPage(page);
+}
+// Close nav on backdrop tap
+document.addEventListener('click',e=>{
+  const links=document.getElementById('navLinks');
+  const btn=document.getElementById('hamBtn');
+  if(links.classList.contains('open')&&!links.contains(e.target)&&!btn.contains(e.target))closeNav();
+});
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+selectGrade(7,document.querySelector('.gbh[data-g="7"]'));
+qPickSubj('mix');
+document.querySelector('#pg-quiz .gsel-btn[data-g="7"]').classList.add('on');
+document.querySelector('#pg-games .gsel-btn[data-g="7"]').classList.add('on');
+updateKeyStatus();
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape')closeNav();
+  if(smActive&&document.getElementById('sm-play').style.display!=='none')
+    document.getElementById('smInp').focus();
+});
+document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+</script>
+</body>
+</html>
